@@ -71,13 +71,14 @@ document.addEventListener("DOMContentLoaded", function () {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ phone, details }),
         });
         if (res.ok) {
           if (formMsg) {
-            formMsg.textContent = "Thanks! Your pickup request has been received.";
+            formMsg.textContent =
+              "Thanks! Your pickup request has been received.";
             formMsg.style.color = "white";
           }
           form.reset();
@@ -102,46 +103,46 @@ document.addEventListener("DOMContentLoaded", function () {
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
   // --- Account card entrance and smooth toggle animation ---
-  const accountCard = document.querySelector('.account-card');
-  const btnSignIn = document.getElementById('btn-signin');
-  const btnSignUp = document.getElementById('btn-signup');
-  const signinForm = document.getElementById('signin-form');
-  const signupForm = document.getElementById('signup-form');
+  const accountCard = document.querySelector(".account-card");
+  const btnSignIn = document.getElementById("btn-signin");
+  const btnSignUp = document.getElementById("btn-signup");
+  const signinForm = document.getElementById("signin-form");
+  const signupForm = document.getElementById("signup-form");
 
   // Entrance animation for the card
   if (accountCard) {
     // trigger enter on next frame so transition runs
-    requestAnimationFrame(() => accountCard.classList.add('enter'));
+    requestAnimationFrame(() => accountCard.classList.add("enter"));
   }
 
   function switchToSignIn(e) {
     if (e) e.preventDefault();
     if (!signinForm || !signupForm) return;
-    signinForm.classList.remove('hide');
-    signinForm.classList.add('show');
-    signupForm.classList.remove('show');
-    signupForm.classList.add('hide');
-    if (btnSignIn) btnSignIn.classList.add('bg-white');
-    if (btnSignUp) btnSignUp.classList.remove('bg-white');
-    if (btnSignIn) btnSignIn.classList.remove('text-gray-600');
-    if (btnSignUp) btnSignUp.classList.add('text-gray-600');
+    signinForm.classList.remove("hide");
+    signinForm.classList.add("show");
+    signupForm.classList.remove("show");
+    signupForm.classList.add("hide");
+    if (btnSignIn) btnSignIn.classList.add("bg-white");
+    if (btnSignUp) btnSignUp.classList.remove("bg-white");
+    if (btnSignIn) btnSignIn.classList.remove("text-gray-600");
+    if (btnSignUp) btnSignUp.classList.add("text-gray-600");
   }
 
   function switchToSignUp(e) {
     if (e) e.preventDefault();
     if (!signinForm || !signupForm) return;
-    signupForm.classList.remove('hide');
-    signupForm.classList.add('show');
-    signinForm.classList.remove('show');
-    signinForm.classList.add('hide');
-    if (btnSignUp) btnSignUp.classList.add('bg-white');
-    if (btnSignIn) btnSignIn.classList.remove('bg-white');
-    if (btnSignUp) btnSignUp.classList.remove('text-gray-600');
-    if (btnSignIn) btnSignIn.classList.add('text-gray-600');
+    signupForm.classList.remove("hide");
+    signupForm.classList.add("show");
+    signinForm.classList.remove("show");
+    signinForm.classList.add("hide");
+    if (btnSignUp) btnSignUp.classList.add("bg-white");
+    if (btnSignIn) btnSignIn.classList.remove("bg-white");
+    if (btnSignUp) btnSignUp.classList.remove("text-gray-600");
+    if (btnSignIn) btnSignIn.classList.add("text-gray-600");
   }
 
-  if (btnSignIn) btnSignIn.addEventListener('click', switchToSignIn);
-  if (btnSignUp) btnSignUp.addEventListener('click', switchToSignUp);
+  if (btnSignIn) btnSignIn.addEventListener("click", switchToSignIn);
+  if (btnSignUp) btnSignUp.addEventListener("click", switchToSignUp);
 });
 document.addEventListener("DOMContentLoaded", function () {
   const btnSignIn = document.getElementById("btn-signin");
@@ -182,9 +183,11 @@ document.addEventListener("DOMContentLoaded", function () {
   signinForm.addEventListener("submit", async function (e) {
     e.preventDefault();
     signinMsg.textContent = "";
-    const identifier = document.getElementById("signin-identifier").value.trim();
+    const identifier = document
+      .getElementById("signin-identifier")
+      .value.trim();
     const password = document.getElementById("signin-password").value;
-    
+
     if (!identifier || !password) {
       signinMsg.style.color = "red";
       signinMsg.textContent = "Please provide phone/email and password.";
@@ -223,7 +226,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const phone = document.getElementById("signup-phone").value.trim();
     const location = document.getElementById("signup-location").value.trim();
     const password = document.getElementById("signup-password").value;
-    
+
     if (!name || !email || !phone || !password) {
       signupMsg.style.color = "red";
       signupMsg.textContent = "Please fill required fields.";
@@ -257,4 +260,67 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // default view
   showSignIn();
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const trigger = document.getElementById("selectTrigger");
+  const list = document.getElementById("optionsList");
+  const selectedText = document.getElementById("selectedText");
+  const dropdownIcon = document.getElementById("dropdownIcon");
+  const selectedValue = document.getElementById("selectedValue");
+  const options = list.querySelectorAll("li");
+
+  // Toggle dropdown on trigger click
+  trigger.addEventListener("click", function () {
+    const isHidden = list.classList.contains("hidden");
+    list.classList.toggle("hidden");
+    dropdownIcon.style.transform = isHidden ? "rotate(180deg)" : "rotate(0deg)";
+  });
+
+  // Handle keyboard navigation (Enter/Space to toggle, Escape to close)
+  trigger.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      trigger.click();
+    } else if (e.key === "Escape" && !list.classList.contains("hidden")) {
+      list.classList.add("hidden");
+      dropdownIcon.style.transform = "rotate(0deg)";
+    }
+  });
+
+  // Select option
+  options.forEach((option) => {
+    option.addEventListener("click", function () {
+      const value = this.dataset.value;
+      selectedText.textContent = this.textContent;
+      selectedText.classList.remove("text-gray-500");
+      selectedValue.value = value;
+      list.classList.add("hidden");
+      dropdownIcon.style.transform = "rotate(0deg)";
+    });
+
+    // Keyboard navigation for options (Arrow keys)
+    option.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        this.click();
+      }
+    });
+  });
+
+  // Close dropdown on outside click
+  document.addEventListener("click", function (e) {
+    if (!trigger.contains(e.target)) {
+      list.classList.add("hidden");
+      dropdownIcon.style.transform = "rotate(0deg)";
+    }
+  });
+
+  // Close on Escape key anywhere
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !list.classList.contains("hidden")) {
+      list.classList.add("hidden");
+      dropdownIcon.style.transform = "rotate(0deg)";
+    }
+  });
 });
