@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PETman</title>
+    <meta name="description" content="Transform waste management with PETman. Fast, reliable, and eco-friendly waste collection and recycling services for homes and businesses." />
+    <link rel="icon" type="image/png" href="./src/assets/petmanlogo.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      body { scroll-behavior: smooth; }
+      .gradient-green { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+      .hover-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+      .hover-lift:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.2); }
+      /* Account card & form animations */
+      .account-card { transform: translateY(12px); opacity: 0; transition: transform 420ms cubic-bezier(.22,1,.36,1), opacity 420ms cubic-bezier(.22,1,.36,1); }
+      .account-card.enter { transform: translateY(0); opacity: 1; }
+      .form-anim { transition: opacity 280ms ease, transform 280ms ease, max-height 320ms ease; overflow: hidden; }
+      .form-anim.show { opacity: 1; transform: translateY(0); max-height: 1000px; pointer-events: auto; }
+      .form-anim.hide { opacity: 0; transform: translateY(-8px); max-height: 0; pointer-events: none; }
+    </style>
+  </head>
+  <body class="antialiased text-gray-800 bg-gray-50">
+    <!-- Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-4">
+          <a href="#home" class="flex items-center gap-3">
+            <img src="./src/assets/petmanlogo.png" alt="PETman Logo" class="w-10 h-10" />
+            <span class="text-2xl font-bold text-green-600">PETman</span>
+          </a>
+          <nav class="hidden md:flex items-center gap-8">
+            <a href="#home" class="text-gray-700 hover:text-green-600 transition font-bold">Home</a>
+            <a href="#mission" class="text-gray-700 hover:text-green-600 transition font-bold">Mission</a>
+            <a href="#traction" class="text-gray-700 hover:text-green-600 transition font-bold">Traction</a>
+            <a href="#team" class="text-gray-700 hover:text-green-600 transition font-bold">Our Team</a>
+            <a href="#shop" class="text-gray-700 hover:text-green-600 transition font-bold">Shop</a>
+            <!-- <a href="#" class="ml-4 bg-gradient-green text-white px-6 py-2 rounded-lg hover:shadow-lg transition">Get Started</a> -->
+          </nav>
+          <button id="nav-toggle" class="md:hidden p-2 rounded-lg border border-gray-300">
+            <svg id="nav-open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg id="nav-close" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div id="mobile-menu" class="md:hidden hidden border-t bg-gray-50">
+        <div class="px-4 py-4 flex flex-col gap-3">
+          <a href="#home" class="text-gray-700 py-2 font-bold">Home</a>
+          <a href="#mission" class="text-gray-700 py-2 font-bold">Mission</a>
+          <a href="#traction" class="text-gray-700 py-2 font-bold">Traction</a>
+          <a href="#team" class="text-gray-700 py-2 font-bold">Our Team</a>
+          <a href="#shop" class="text-gray-700 py-2 font-bold">Shop</a>
+          <a href="#" class="mt-2 bg-gradient-green text-white px-6 py-2 rounded-lg text-center">Get Started</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section id="home" class="pt-20 pb-32 gradient-green">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-top">
+            <div class="text-white">
+              <h1 class="text-5xl sm:text-6xl font-extrabold leading-tight mb-4">"Recycling Made Simple, Safe & Transparent" </h1>
+              <p class="text-xl text-green-50 mb-8">PETman revolutionizes waste collection with cutting-edge technology, eco-friendly practices, and 24/7 support.</p>
+              <div class="flex flex-col sm:flex-row gap-4 mb-12">
+                <a href="#contact" class="inline-flex items-center justify-center gap-2 bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:shadow-xl transition">
+                  <i class="fas fa-calendar"></i> Schedule Pickup
+                </a>
+                <a href="#services" class="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition">
+                  <i class="fas fa-play-circle"></i> Learn More
+                </a>
+              </div>
+              <div class="grid grid-cols-3 gap-6">
+                <div class="bg-white bg-opacity-10 backdrop-blur p-4 rounded-lg">
+                  <p class="text-3xl font-bold">4.9★</p>
+                  <p class="text-sm text-green-50">Rating</p>
+                </div>
+                <div class="bg-white bg-opacity-10 backdrop-blur p-4 rounded-lg">
+                  <p class="text-3xl font-bold">50K+</p>
+                  <p class="text-sm text-green-50">Users</p>
+                </div>
+                <div class="bg-white bg-opacity-10 backdrop-blur p-4 rounded-lg">
+                  <p class="text-3xl font-bold">500+</p>
+                  <p class="text-sm text-green-50">Cities</p>
+                </div>
+              </div>
+            </div>
+            <div class="relative hidden lg:flex justify-center">
+              <div class="bg-white rounded-2xl shadow-2xl overflow-hidden w-full max-w-md p-6 min-h-96 account-card">
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="text-xl font-bold text-gray-800">Account</h3>
+                  <div class="text-sm text-gray-500">Welcome to PETman</div>
+                </div>
+
+                <div class="mb-4">
+                  <div class="flex gap-2 bg-gray-100 rounded-full p-1 w-full">
+                    <button id="btn-signin" class="flex-1 py-2 rounded-full text-sm font-semibold text-gray-700 bg-white">Sign In</button>
+                    <button id="btn-signup" class="flex-1 py-2 rounded-full text-sm font-semibold text-gray-600">Sign Up</button>
+                  </div>
+                </div>
+
+                <!-- Sign In Form -->
+                <form id="signin-form" class="space-y-3 form-anim show">
+                  <input id="signin-identifier" type="text" placeholder="Phone or Email" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none" />
+                  <input id="signin-password" type="password" placeholder="Password" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none" />
+                  <p id="signin-msg" class="text-sm text-red-500 mt-2"></p>
+                  <div class="pt-2">
+                    <button type="submit" class="w-full bg-gradient-green text-white px-5 py-3 rounded-lg font-semibold bg-green-600">Sign In</button>
+                  </div>
+                  <div class="text-sm text-gray-600 pt-2">Don't have an account?</div>
+                </form>
+
+                <!-- Sign Up Form (hidden by default) -->
+                <form id="signup-form" class="space-y-3 form-anim hide">
+                  <input id="signup-name" type="text" placeholder="Full Name" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none" />
+                  <input id="signup-email" type="email" placeholder="Email" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none" />
+                  <input id="signup-phone" type="tel" placeholder="Phone Number" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none" />
+                  <input id="signup-location" type="text" placeholder="Location" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none" />
+                  <input id="signup-password" type="password" placeholder="Password" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none" />
+                  <p id="signup-msg" class="text-sm text-green-600 mt-2"></p>
+                  <div class="pt-2">
+                    <button type="submit" class="w-full bg-gradient-green text-white px-5 py-3 rounded-lg font-semibold bg-green-600">Sign Up</button>
+                  </div>
+                  <div class="text-sm text-gray-600 pt-2">Already have an account?</div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section id="services" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 class="text-4xl font-bold text-center mb-16">Our Services</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="hover-lift border-2 border-gray-100 rounded-xl p-8 hover:border-green-500">
+              <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-4">
+                <i class="fas fa-home text-2xl text-green-600"></i>
+              </div>
+              <h3 class="text-2xl font-bold mb-3">Residential</h3>
+              <p class="text-gray-600 mb-4">Weekly or on-demand waste collection for homes.</p>
+              <ul class="space-y-2 text-sm text-gray-600">
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Flexible scheduling</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Eco-friendly</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i> 24/7 support</li>
+              </ul>
+            </div>
+            <div class="hover-lift border-2 border-gray-100 rounded-xl p-8 hover:border-green-500">
+              <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-4">
+                <i class="fas fa-building text-2xl text-green-600"></i>
+              </div>
+              <h3 class="text-2xl font-bold mb-3">Business</h3>
+              <p class="text-gray-600 mb-4">Custom packages for offices, restaurants, and retail.</p>
+              <ul class="space-y-2 text-sm text-gray-600">
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Custom contracts</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Bulk discounts</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Compliance certified</li>
+              </ul>
+            </div>
+            <div class="hover-lift border-2 border-gray-100 rounded-xl p-8 hover:border-green-500">
+              <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-4">
+                <i class="fas fa-recycle text-2xl text-green-600"></i>
+              </div>
+              <h3 class="text-2xl font-bold mb-3">Recycling</h3>
+              <p class="text-gray-600 mb-4">Specialized sorting and recycling services.</p>
+              <ul class="space-y-2 text-sm text-gray-600">
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Expert sorting</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Zero-waste goal</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Impact reports</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Benefits -->
+      <section id="benefits" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 class="text-4xl font-bold text-center mb-16">Why Choose PETman?</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="flex items-start gap-4">
+              <div class="flex items-center justify-center h-12 w-12 rounded-md gradient-green text-white flex-shrink-0">
+                <i class="fas fa-leaf"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold">100% Eco-Friendly</h3>
+                <p class="mt-2 text-gray-600">Responsible waste processing with minimal impact.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="flex items-center justify-center h-12 w-12 rounded-md gradient-green text-white flex-shrink-0">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold">24/7 Availability</h3>
+                <p class="mt-2 text-gray-600">Schedule anytime, day or night.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="flex items-center justify-center h-12 w-12 rounded-md gradient-green text-white flex-shrink-0">
+                <i class="fas fa-dollar-sign"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold">Transparent Pricing</h3>
+                <p class="mt-2 text-gray-600">No hidden charges or surprises.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="flex items-center justify-center h-12 w-12 rounded-md gradient-green text-white flex-shrink-0">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold">Real-Time Tracking</h3>
+                <p class="mt-2 text-gray-600">Monitor your collection in real-time.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="flex items-center justify-center h-12 w-12 rounded-md gradient-green text-white flex-shrink-0">
+                <i class="fas fa-headset"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold">Expert Support</h3>
+                <p class="mt-2 text-gray-600">Professional team ready to help.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="flex items-center justify-center h-12 w-12 rounded-md gradient-green text-white flex-shrink-0">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold">Impact Reports</h3>
+                <p class="mt-2 text-gray-600">Track your environmental impact.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pricing -->
+      <section id="pricing" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 class="text-4xl font-bold text-center mb-16">Simple Pricing</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="hover-lift rounded-2xl p-8 border-2 border-gray-200">
+              <h3 class="text-2xl font-bold mb-6">Basic - $49/mo</h3>
+              <ul class="space-y-4 mb-8">
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Up to 4 pickups</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Standard waste</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Email support</li>
+              </ul>
+              <button class="w-full bg-gray-200 text-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300">Get Started</button>
+            </div>
+            <div class="hover-lift rounded-2xl p-8 border-4 border-green-600 relative">
+              <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-green text-white px-4 py-1 rounded-full text-sm font-bold">POPULAR</div>
+              <h3 class="text-2xl font-bold mb-6">Pro - $99/mo</h3>
+              <ul class="space-y-4 mb-8">
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Unlimited pickups</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i> All waste types</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Priority support</li>
+              </ul>
+              <button class="w-full gradient-green text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg">Get Started</button>
+            </div>
+            <div class="hover-lift rounded-2xl p-8 border-2 border-gray-200">
+              <h3 class="text-2xl font-bold mb-6">Enterprise - Custom</h3>
+              <ul class="space-y-4 mb-8">
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Custom volume</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Dedicated account</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Premium support</li>
+              </ul>
+              <button class="w-full bg-gray-200 text-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300">Contact Sales</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About -->
+      <section id="about" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 class="text-4xl font-bold mb-6">About PETman</h2>
+              <p class="text-lg text-gray-600 mb-4">Founded in 2020, PETman revolutionizes waste management with smart technology and sustainable practices. Our mission is to make waste collection convenient, transparent, and environmentally responsible.</p>
+              <p class="text-lg text-gray-600 mb-4">We partner with 500+ cities and have processed 1M+ collections, diverting thousands of tons from landfills.</p>
+              <div class="grid grid-cols-3 gap-6 mt-8">
+                <div>
+                  <p class="text-3xl font-bold text-green-600">1M+</p>
+                  <p class="text-gray-600 mt-2">Collections</p>
+                </div>
+                <div>
+                  <p class="text-3xl font-bold text-green-600">500K+</p>
+                  <p class="text-gray-600 mt-2">Recycled</p>
+                </div>
+                <div>
+                  <p class="text-3xl font-bold text-green-600">500+</p>
+                  <p class="text-gray-600 mt-2">Cities</p>
+                </div>
+              </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop" alt="About" class="rounded-2xl shadow-xl"/>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" class="py-20 bg-gradient-green">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 class="text-4xl font-bold text-white text-center mb-12">Ready to Transform Your Waste?</h2>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-8">
+              <form id="contact-form" class="space-y-4">
+                <input id="name" type="text" placeholder="Full Name" required class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-white" />
+                <input id="email" type="email" placeholder="Email" required class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-white" />
+                <input id="phone" type="tel" placeholder="Phone" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-white" />
+                <textarea id="details" rows="4" placeholder="Details..." class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-white resize-none"></textarea>
+                <button type="submit" class="w-full bg-white text-green-600 px-6 py-3 rounded-lg font-bold hover:bg-green-50">
+                  <i class="fas fa-calendar mr-2"></i> Schedule Pickup
+                </button>
+                <p id="form-msg" class="text-sm text-white text-center"></p>
+              </form>
+            </div>
+            <div class="text-white">
+              <h3 class="text-2xl font-bold mb-8">Contact Info</h3>
+              <div class="space-y-6">
+                <div class="flex items-start gap-4">
+                  <i class="fas fa-map-marker-alt text-2xl mt-1"></i>
+                  <div>
+                    <h4 class="font-bold">Address</h4>
+                    <p class="text-green-50">123 Green Street, Eco City</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <i class="fas fa-phone text-2xl mt-1"></i>
+                  <div>
+                    <h4 class="font-bold">Phone</h4>
+                    <p class="text-green-50">+1 (555) 123-4567</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <i class="fas fa-envelope text-2xl mt-1"></i>
+                  <div>
+                    <h4 class="font-bold">Email</h4>
+                    <p class="text-green-50">info@petman.com</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="bg-gray-900 text-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <a href="#home" class="flex items-center gap-3 mb-4">
+                <img src="./src/assets/petmanlogo.png" alt="PETman Logo" class="w-10 h-10" />
+                <span class="text-xl font-bold text-white">PETman</span>
+              </a>
+              <p class="text-sm">Smart, sustainable waste management.</p>
+            </div>
+            <div>
+              <h4 class="text-white font-bold mb-4">Links</h4>
+              <ul class="space-y-2 text-sm">
+                <li><a href="#home" class="hover:text-green-400">Home</a></li>
+                <li><a href="#services" class="hover:text-green-400">Services</a></li>
+                <li><a href="#pricing" class="hover:text-green-400">Pricing</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-white font-bold mb-4">Support</h4>
+              <ul class="space-y-2 text-sm">
+                <li><a href="#" class="hover:text-green-400">Help</a></li>
+                <li><a href="#" class="hover:text-green-400">Privacy</a></li>
+                <li><a href="#" class="hover:text-green-400">Terms</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-white font-bold mb-4">Newsletter</h4>
+              <form class="flex">
+                <input type="email" placeholder="Email" class="flex-1 px-3 py-2 rounded-l text-gray-900 text-sm focus:outline-none" />
+                <button class="bg-green-600 px-3 py-2 rounded-r"><i class="fas fa-arrow-right"></i></button>
+              </form>
+            </div>
+          </div>
+          <div class="border-t border-gray-700 pt-8 text-center text-sm">
+            <p>© <span id="year"></span> PETman. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </main>
+    <script src="./app.js"></script>
+    <script>
+
+    </script>
+  </body>
+</html>
