@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PETman</title>
+    <meta name="description"
+        content="Transform waste management with PETman. Fast, reliable, and eco-friendly waste collection and recycling services for homes and businesses." />
+    <link rel="icon" type="image/png" href="./src/assets/petmanlogo.png" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body {
+            scroll-behavior: smooth;
+        }
+
+        .gradient-green {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.2);
+        }
+
+        /* Account card & form animations */
+        .account-card {
+            transform: translateY(12px);
+            opacity: 0;
+            transition: transform 420ms cubic-bezier(.22, 1, .36, 1), opacity 420ms cubic-bezier(.22, 1, .36, 1);
+        }
+
+        .account-card.enter {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .form-anim {
+            transition: opacity 280ms ease, transform 280ms ease, max-height 320ms ease;
+            overflow: hidden;
+        }
+
+        .form-anim.show {
+            opacity: 1;
+            transform: translateY(0);
+            max-height: 1000px;
+            pointer-events: auto;
+        }
+
+        .form-anim.hide {
+            opacity: 0;
+            transform: translateY(-8px);
+            max-height: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body class="bg-green-100">
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <a href="../../index.html" class="flex items-center gap-3">
+                    <img src="./src/assets/petmanlogo.png" alt="PETman Logo" class="w-10 h-10" />
+                    <span class="text-2xl font-bold text-green-600">PETman</span>
+                </a>
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="../../index.html/" class="text-gray-700 hover:text-green-600 transition font-bold">Home</a>
+                    <a href="#mission" class="text-gray-700 hover:text-green-600 transition font-bold">Mission</a>
+                    <a href="#traction" class="text-gray-700 hover:text-green-600 transition font-bold">Traction</a>
+                    <a href="#team" class="text-gray-700 hover:text-green-600 transition font-bold">Our Team</a>
+                    <a href="#shop" class="text-gray-700 hover:text-green-600 transition font-bold">Shop</a>
+                    <a id="dashboard-link" href="./src/userDashboard/userDashboard.html"
+                        class="text-gray-700 hover:text-green-600 transition font-bold hidden">Dashboard</a>
+                    <!-- <a href="#" class="ml-4 bg-gradient-green text-white px-6 py-2 rounded-lg hover:shadow-lg transition">Get Started</a> -->
+                </nav>
+                <button id="nav-toggle" class="md:hidden p-2 rounded-lg border border-gray-300">
+                    <svg id="nav-open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <svg id="nav-close" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden border-t bg-gray-50">
+            <div class="px-4 py-4 flex flex-col gap-3">
+                <a href="/" class="text-gray-700 py-2 font-bold">Home</a>
+                <a href="#mission" class="text-gray-700 py-2 font-bold">Mission</a>
+                <a href="#traction" class="text-gray-700 py-2 font-bold">Traction</a>
+                <a href="#team" class="text-gray-700 py-2 font-bold">Our Team</a>
+                <a href="#shop" class="text-gray-700 py-2 font-bold">Shop</a>
+                <a id="dashboard-link-mobile" href="#dashboard"
+                    class="text-gray-700 py-2 font-bold hidden">Dashboard</a>
+                <a href="#" class="mt-2 bg-gradient-green text-white px-6 py-2 rounded-lg text-center">Get Started</a>
+            </div>
+        </div>
+    </header>
+    <section class="bg-green-100 h-full max-w-full">
+        <div class="max-w-7xl mx-auto">
+            <div id="maindiv" class="flex border-2 my-4 border-green-700 rounded-2xl">
+                <div id="menudiv" class="border-r-2 border-green-800 pr">
+                    <div class="border-b-2 border-green-800 px-7 py-4">Dashboard</div>
+                    <div class="">Dashboard</div>
+                    <div class="">Dashboard</div>
+                </div>
+                <div id="contentdiv">content</div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

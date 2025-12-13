@@ -1,4 +1,24 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // Check login status and show/hide Dashboard link
+  function updateDashboardVisibility() {
+    const token = sessionStorage.getItem("authToken");
+    const dashboardLink = document.getElementById("dashboard-link");
+    const dashboardLinkMobile = document.getElementById("dashboard-link-mobile");
+    
+    if (token) {
+      // User is logged in - show Dashboard
+      if (dashboardLink) dashboardLink.classList.remove("hidden");
+      if (dashboardLinkMobile) dashboardLinkMobile.classList.remove("hidden");
+    } else {
+      // User is not logged in - hide Dashboard
+      if (dashboardLink) dashboardLink.classList.add("hidden");
+      if (dashboardLinkMobile) dashboardLinkMobile.classList.add("hidden");
+    }
+  }
+  
+  // Initial check on page load
+  updateDashboardVisibility();
+  
   // Mobile nav toggle
   const navToggle = document.getElementById("nav-toggle");
   const mobileMenu = document.getElementById("mobile-menu");
@@ -206,6 +226,7 @@ document.addEventListener("DOMContentLoaded", function () {
         signinMsg.style.color = "green";
         signinMsg.textContent = "Sign in successful!";
         signinForm.reset();
+        updateDashboardVisibility();
       } else {
         signinMsg.style.color = "red";
         signinMsg.textContent = "Invalid credentials.";
@@ -245,6 +266,7 @@ document.addEventListener("DOMContentLoaded", function () {
         signupMsg.style.color = "green";
         signupMsg.textContent = "Sign up successful! Switching to Sign In...";
         signupForm.reset();
+        //updateDashboardVisibility();
         setTimeout(() => showSignIn(), 1500);
       } else {
         const err = await res.json();

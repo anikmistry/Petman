@@ -77,7 +77,7 @@
           <a href="#traction" class="text-gray-700 hover:text-green-600 transition font-bold">Traction</a>
           <a href="#team" class="text-gray-700 hover:text-green-600 transition font-bold">Our Team</a>
           <a href="#shop" class="text-gray-700 hover:text-green-600 transition font-bold">Shop</a>
-          <a href="#shop" class="text-gray-700 hover:text-green-600 transition font-bold">Dashbord</a>
+          <a id="dashboard-link" href="./src/userDashboard/userDashboard.html" class="text-gray-700 hover:text-green-600 transition font-bold hidden">Dashboard</a>
           <!-- <a href="#" class="ml-4 bg-gradient-green text-white px-6 py-2 rounded-lg hover:shadow-lg transition">Get Started</a> -->
         </nav>
         <button id="nav-toggle" class="md:hidden p-2 rounded-lg border border-gray-300">
@@ -97,6 +97,7 @@
         <a href="#traction" class="text-gray-700 py-2 font-bold">Traction</a>
         <a href="#team" class="text-gray-700 py-2 font-bold">Our Team</a>
         <a href="#shop" class="text-gray-700 py-2 font-bold">Shop</a>
+        <a id="dashboard-link-mobile" href="#dashboard" class="text-gray-700 py-2 font-bold hidden">Dashboard</a>
         <a href="#" class="mt-2 bg-gradient-green text-white px-6 py-2 rounded-lg text-center">Get Started</a>
       </div>
     </div>
@@ -248,7 +249,7 @@
           </div>
 
           <!-- Households Served -->
-          <div class="text-center p-6 bg-blue-50 hover-lift rounded-2xl  border-2 border-gray-200">
+          <div class="text-center p-6 bg-green-50 hover-lift rounded-2xl  border-2 border-gray-200">
             <div class="mx-auto w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
               <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -262,7 +263,7 @@
           </div>
 
           <!-- Institutional Partnerships -->
-          <div class="text-center p-6 bg-purple-50 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="text-center p-6 bg-green-50 hover-lift rounded-2xl  border-2 border-gray-200">
             <div class="mx-auto w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-4">
               <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -276,7 +277,7 @@
           </div>
 
           <!-- Events Covered -->
-          <div class="text-center p-6 bg-indigo-50 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="text-center p-6 bg-green-50 hover-lift rounded-2xl  border-2 border-gray-200">
             <div class="mx-auto w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mb-4">
               <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -317,7 +318,7 @@
             <div class="p-6 text-center">
               <h2 class="text-2xl font-bold pb-4">Shahriyar Hasan</h2>
               <p class="text-xl font-bold">Co-Founder</p>
-              <p><i class="ri-mail-line text-green-600 font-black"></i>  shahriyar@petman.biz</p>
+              <p><i class="ri-mail-line text-green-600 font-black"></i> shahriyar@petman.biz</p>
               <p><i class="ri-phone-line text-green-600 font-black"></i> +8801712792127</p>
             </div>
           </div>
@@ -370,91 +371,69 @@
     </section>
 
     <!-- shop -->
-     <section id="shop" class="py-16 px-4 sm:px-6 lg:px-8 bg-green-100">
-      <div class="max-w-7xl mx-auto">
-        <h1 class="text-4xl font-bold text-center text-gray-900">Shop</h1>
-        <h3 class="text-center text-gray-600 max-w-2xl mx-auto my-4">Eco-Friendly Products You Can Trust </h3>
-        <div>
-          <div></div>
+    <section id="shop" class="bg-white py-16 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+        <!-- Section Headline -->
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Shop<i class="ri-store-2-line"></i></h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">Eco-Friendly Products You Can Trust</p>
         </div>
-      </div>
-     </section>
 
-    <!-- Pricing
-    <section id="pricing" class="py-20 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-4xl font-bold text-center mb-16">Simple Pricing</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="hover-lift rounded-2xl p-8 border-2 border-gray-200">
-            <h3 class="text-2xl font-bold mb-6">Basic - $49/mo</h3>
-            <ul class="space-y-4 mb-8">
-              <li><i class="fas fa-check text-green-600 mr-2"></i> Up to 4 pickups</li>
-              <li><i class="fas fa-check text-green-600 mr-2"></i> Standard waste</li>
-              <li><i class="fas fa-check text-green-600 mr-2"></i> Email support</li>
-            </ul>
-            <button class="w-full bg-gray-200 text-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300">Get
-              Started</button>
-          </div>
-          <div class="hover-lift rounded-2xl p-8 border-4 border-green-600 relative">
-            <div
-              class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-green text-white px-4 py-1 rounded-full text-sm font-bold">
-              POPULAR</div>
-            <h3 class="text-2xl font-bold mb-6">Pro - $99/mo</h3>
-            <ul class="space-y-4 mb-8">
-              <li><i class="fas fa-check text-green-600 mr-2"></i> Unlimited pickups</li>
-              <li><i class="fas fa-check text-green-600 mr-2"></i> All waste types</li>
-              <li><i class="fas fa-check text-green-600 mr-2"></i> Priority support</li>
-            </ul>
-            <button class="w-full gradient-green text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg">Get
-              Started</button>
-          </div>
-          <div class="hover-lift rounded-2xl p-8 border-2 border-gray-200">
-            <h3 class="text-2xl font-bold mb-6">Enterprise - Custom</h3>
-            <ul class="space-y-4 mb-8">
-              <li><i class="fas fa-check text-green-600 mr-2"></i> Custom volume</li>
-              <li><i class="fas fa-check text-green-600 mr-2"></i> Dedicated account</li>
-              <li><i class="fas fa-check text-green-600 mr-2"></i> Premium support</li>
-            </ul>
-            <button
-              class="w-full bg-gray-200 text-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300">Contact
-              Sales</button>
-          </div>
-        </div>
-      </div>
-    </section>  -->
-
-    <!-- About
-    <section id="about" class="py-20 bg-gray-50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 class="text-4xl font-bold mb-6">About PETman</h2>
-            <p class="text-lg text-gray-600 mb-4">Founded in 2020, PETman revolutionizes waste management with smart
-              technology and sustainable practices. Our mission is to make waste collection convenient, transparent, and
-              environmentally responsible.</p>
-            <p class="text-lg text-gray-600 mb-4">We partner with 500+ cities and have processed 1M+ collections,
-              diverting thousands of tons from landfills.</p>
-            <div class="grid grid-cols-3 gap-6 mt-8">
-              <div>
-                <p class="text-3xl font-bold text-green-600">1M+</p>
-                <p class="text-gray-600 mt-2">Collections</p>
-              </div>
-              <div>
-                <p class="text-3xl font-bold text-green-600">500K+</p>
-                <p class="text-gray-600 mt-2">Recycled</p>
-              </div>
-              <div>
-                <p class="text-3xl font-bold text-green-600">500+</p>
-                <p class="text-gray-600 mt-2">Cities</p>
-              </div>
+        <!-- product Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          <!-- product -->
+          <div class="text-center p-4 bg-green-50 rounded-2xl  border-2 border-gray-200">
+            <div class="mx-auto  bg-green-100   flex items-center justify-center mb-4 hover:shadow-4xl block">
+              <img class="rounded-2xl" src="./src/assets/CTO.jpg" alt="">
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-1">Product name</h3>
+            <p class=" text-gray-800">simple desciption----Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Deleniti perferendis,!</p>
+            <div class="p-2 bg-green-600 rounded-2xl hover:bg-green-700">
+              <a class="p-4 text-white font-bold" 
+              href="#">Visit Full Shop <i class="ri-store-2-line"></i></a>
             </div>
           </div>
-          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop"
-            alt="About" class="rounded-2xl shadow-xl" />
+          <div class="text-center p-4 bg-green-50 rounded-2xl  border-2 border-gray-200">
+            <div class="mx-auto  bg-green-100   flex items-center justify-center mb-4 hover:shadow-4xl block">
+              <img class="rounded-2xl" src="./src/assets/CTO.jpg" alt="">
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-1">Product name</h3>
+            <p class=" text-gray-800">simple desciption----Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Deleniti perferendis,!</p>
+            <div class="p-2 bg-green-600 rounded-2xl hover:bg-green-700">
+              <a class="p-4 text-white font-bold" 
+              href="#">Visit Full Shop <i class="ri-store-2-line"></i></a>
+            </div>
+          </div>
+          <div class="text-center p-4 bg-green-50 rounded-2xl  border-2 border-gray-200">
+            <div class="mx-auto  bg-green-100   flex items-center justify-center mb-4 hover:shadow-4xl block">
+              <img class="rounded-2xl" src="./src/assets/CTO.jpg" alt="">
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-1">Product name</h3>
+            <p class=" text-gray-800">simple desciption----Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Deleniti perferendis,!</p>
+            <div class="p-2 bg-green-600 rounded-2xl hover:bg-green-700">
+              <a class="p-4 text-white font-bold" 
+              href="#">Visit Full Shop <i class="ri-store-2-line"></i></a>
+            </div>
+          </div>
+          <div class="text-center p-4 bg-green-50 rounded-2xl  border-2 border-gray-200">
+            <div class="mx-auto  bg-green-100   flex items-center justify-center mb-4 hover:shadow-4xl block">
+              <img class="rounded-2xl" src="./src/assets/CTO.jpg" alt="">
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-1">Product name</h3>
+            <p class=" text-gray-800">simple desciption----Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Deleniti perferendis,!</p>
+            <div class="p-2 bg-green-600 rounded-2xl hover:bg-green-700">
+              <a class="p-4 text-white font-bold" 
+              href="#">Visit Full Shop <i class="ri-store-2-line"></i></a>
+            </div>
+          </div>
+
         </div>
       </div>
-    </section> -->
-
+    </section>
     <!-- Contact -->
     <section id="contact" class="py-20 bg-gradient-green">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
