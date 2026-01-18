@@ -67,16 +67,20 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-4">
                 <a href="../../index.html" class="flex items-center gap-3">
-                    <img src="./src/assets/petmanlogo.png" alt="PETman Logo" class="w-10 h-10" />
+                    <img src="../../src/assets/petmanlogo.png" alt="PETman Logo" class="w-10 h-10" />
                     <span class="text-2xl font-bold text-green-600">PETman</span>
                 </a>
                 <nav class="hidden md:flex items-center gap-8">
-                    <a href="../../index.html/" class="text-gray-700 hover:text-green-600 transition font-bold">Home</a>
-                    <a href="#mission" class="text-gray-700 hover:text-green-600 transition font-bold">Mission</a>
-                    <a href="#traction" class="text-gray-700 hover:text-green-600 transition font-bold">Traction</a>
-                    <a href="#team" class="text-gray-700 hover:text-green-600 transition font-bold">Our Team</a>
-                    <a href="#shop" class="text-gray-700 hover:text-green-600 transition font-bold">Shop</a>
-                    <a id="dashboard-link" href="./src/userDashboard/userDashboard.html"
+                    <a href="../../index.html" class="text-gray-700 hover:text-green-600 transition font-bold">Home</a>
+                    <a href="../../index.html#mission"
+                        class="text-gray-700 hover:text-green-600 transition font-bold">Mission</a>
+                    <a href="../../index.html#traction"
+                        class="text-gray-700 hover:text-green-600 transition font-bold">Traction</a>
+                    <a href="../../index.html#team" class="text-gray-700 hover:text-green-600 transition font-bold">Our
+                        Team</a>
+                    <a href="../../index.html#shop"
+                        class="text-gray-700 hover:text-green-600 transition font-bold">Shop</a>
+                    <a id="dashboard-link" href="#"
                         class="text-gray-700 hover:text-green-600 transition font-bold hidden">Dashboard</a>
                     <!-- <a href="#" class="ml-4 bg-gradient-green text-white px-6 py-2 rounded-lg hover:shadow-lg transition">Get Started</a> -->
                 </nav>
@@ -94,29 +98,367 @@
         </div>
         <div id="mobile-menu" class="md:hidden hidden border-t bg-gray-50">
             <div class="px-4 py-4 flex flex-col gap-3">
-                <a href="/" class="text-gray-700 py-2 font-bold">Home</a>
-                <a href="#mission" class="text-gray-700 py-2 font-bold">Mission</a>
-                <a href="#traction" class="text-gray-700 py-2 font-bold">Traction</a>
-                <a href="#team" class="text-gray-700 py-2 font-bold">Our Team</a>
-                <a href="#shop" class="text-gray-700 py-2 font-bold">Shop</a>
-                <a id="dashboard-link-mobile" href="#dashboard"
-                    class="text-gray-700 py-2 font-bold hidden">Dashboard</a>
-                <a href="#" class="mt-2 bg-gradient-green text-white px-6 py-2 rounded-lg text-center">Get Started</a>
+                <a href="../../index.html" class="text-gray-700 py-2 font-bold">Home</a>
+                <a href="../../index.html#mission" class="text-gray-700 py-2 font-bold">Mission</a>
+                <a href="../../index.html#traction" class="text-gray-700 py-2 font-bold">Traction</a>
+                <a href="../../index.html#team" class="text-gray-700 py-2 font-bold">Our Team</a>
+                <a href="../../index.html#shop" class="text-gray-700 py-2 font-bold">Shop</a>
+                <a id="dashboard-link-mobile" href="#" class="text-gray-700 py-2 font-bold hidden">Dashboard</a>
+                <a href="../../index.html" class="mt-2 gradient-green text-white px-6 py-2 rounded-lg text-center">Get
+                    Started</a>
             </div>
         </div>
     </header>
     <section class="bg-green-100 h-full max-w-full">
         <div class="max-w-7xl mx-auto">
-            <div id="maindiv" class="flex border-2 my-4 border-green-700 rounded-2xl">
-                <div id="menudiv" class="border-r-2 border-green-800 pr">
-                    <div class="border-b-2 border-green-800 px-7 py-4">Dashboard</div>
-                    <div class="">Dashboard</div>
-                    <div class="">Dashboard</div>
+            <div id="maindiv" class="flex  my-4  min-h-screen">
+                <div id="menudiv" class="w-64 bg-green-600 text-white p-4">
+                    <h2 class="text-xl font-bold mb-6">Menu</h2>
+                    <ul class="space-y-4">
+                        <li><button id="menu-dashboard"
+                                class="w-full text-left py-2 px-4 rounded hover:bg-green-700 transition">Dashboard</button>
+                        </li>
+                        <li><button id="menu-pickup"
+                                class="w-full text-left py-2 px-4 rounded hover:bg-green-700 transition">Pickup</button>
+                        </li>
+                        <li><button id="menu-profile"
+                                class="w-full text-left py-2 px-4 rounded hover:bg-green-700 transition">Profile</button>
+                        </li>
+                        <li><button id="menu-logout"
+                                class="w-full text-left py-2 px-4 rounded hover:bg-green-700 transition bg-red-500 hover:bg-red-600">Logout</button>
+                        </li>
+                    </ul>
                 </div>
-                <div id="contentdiv">content</div>
+                <div id="contentdiv" class="flex-1 p-6 bg-white">
+                    <!-- Content will be loaded here -->
+                </div>
             </div>
         </div>
     </section>
+    <script>
+        const token = sessionStorage.getItem('authToken');
+        if (!token) {
+            window.location.href = '../../index.html';
+        }
+
+        const contentDiv = document.getElementById('contentdiv');
+        const menuButtons = document.querySelectorAll('#menudiv button');
+
+        menuButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const menu = button.id.replace('menu-', '');
+                loadContent(menu);
+            });
+        });
+
+        function loadContent(menu) {
+            switch (menu) {
+                case 'dashboard':
+                    loadDashboard();
+                    break;
+                case 'pickup':
+                    loadPickup();
+                    break;
+                case 'profile':
+                    loadProfile();
+                    break;
+                case 'logout':
+                    logout();
+                    break;
+            }
+        }
+
+        async function loadDashboard() {
+            contentDiv.innerHTML = '<h1 class="text-2xl font-bold mb-4">Dashboard</h1><p>Loading...</p>';
+            try {
+                const res = await fetch('http://localhost:5000/api/pickups', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    const pickups = await res.json();
+                    const stats = calculateStats(pickups);
+                    contentDiv.innerHTML = `
+                        <h1 class="text-3xl font-bold mb-6 text-green-600">Dashboard</h1>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                            <div class="bg-gradient-to-r from-green-400 to-green-600 text-white p-6 rounded-lg shadow-lg">
+                                <h3 class="text-lg font-semibold mb-2">Total Waste Sold</h3>
+                                <p class="text-3xl font-bold">${stats.total.plasticBottles + stats.total.paperProducts + stats.total.electronics + stats.total.usedClothes + stats.total.metalItems + stats.total.cardboard} kg</p>
+                                <p class="text-sm opacity-80">All time</p>
+                            </div>
+                            <div class="bg-gradient-to-r from-blue-400 to-blue-600 text-white p-6 rounded-lg shadow-lg">
+                                <h3 class="text-lg font-semibold mb-2">Total Earnings</h3>
+                                <p class="text-3xl font-bold">${stats.total.earned} BDT</p>
+                                <p class="text-sm opacity-80">All time</p>
+                            </div>
+                            <div class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white p-6 rounded-lg shadow-lg">
+                                <h3 class="text-lg font-semibold mb-2">This Month</h3>
+                                <p class="text-3xl font-bold">${stats.thisMonth.plasticBottles + stats.thisMonth.paperProducts + stats.thisMonth.electronics + stats.thisMonth.usedClothes + stats.thisMonth.metalItems + stats.thisMonth.cardboard} kg</p>
+                                <p class="text-sm opacity-80">Waste sold</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="bg-white p-6 rounded-lg shadow-lg border">
+                                <h3 class="text-xl font-bold mb-4 text-gray-700">Waste by Category</h3>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between">
+                                        <span>Plastic Bottles</span>
+                                        <span class="font-semibold">${stats.total.plasticBottles} kg</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Paper Products</span>
+                                        <span class="font-semibold">${stats.total.paperProducts} kg</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Electronics</span>
+                                        <span class="font-semibold">${stats.total.electronics} kg</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Used Clothes</span>
+                                        <span class="font-semibold">${stats.total.usedClothes} kg</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Metal Items</span>
+                                        <span class="font-semibold">${stats.total.metalItems} kg</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Cardboard</span>
+                                        <span class="font-semibold">${stats.total.cardboard} kg</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-lg shadow-lg border">
+                                <h3 class="text-xl font-bold mb-4 text-gray-700">Earnings Breakdown</h3>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between">
+                                        <span>This Month</span>
+                                        <span class="font-semibold text-green-600">${stats.thisMonth.earned} BDT</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>This Year</span>
+                                        <span class="font-semibold text-blue-600">${stats.thisYear.earned} BDT</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Total</span>
+                                        <span class="font-semibold text-purple-600">${stats.total.earned} BDT</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    contentDiv.innerHTML = '<p>Failed to load dashboard data.</p>';
+                }
+            } catch (err) {
+                contentDiv.innerHTML = '<p>Error loading dashboard.</p>';
+            }
+        }
+
+        function calculateStats(pickups) {
+            const now = new Date();
+            const thisMonth = { plasticBottles: 0, paperProducts: 0, electronics: 0, usedClothes: 0, metalItems: 0, cardboard: 0, earned: 0 };
+            const thisYear = { plasticBottles: 0, paperProducts: 0, electronics: 0, usedClothes: 0, metalItems: 0, cardboard: 0, earned: 0 };
+            const total = { plasticBottles: 0, paperProducts: 0, electronics: 0, usedClothes: 0, metalItems: 0, cardboard: 0, earned: 0 };
+
+            const prices = {
+                'plastic bottles': 15,
+                'paper products': 10,
+                'electronics': 50,
+                'used clothes': 20,
+                'metal items': 25,
+                'cardboard': 5
+            };
+
+            pickups.forEach(pickup => {
+                const date = new Date(pickup.createdAt);
+                const category = pickup.wasteType.toLowerCase();
+                const quantity = pickup.quantity;
+                const price = prices[category] || 15; // Default to 15 if not found
+                const earned = quantity * price;
+
+                const key = category.replace(/\s+/g, ''); // Remove spaces for key
+
+                if (total.hasOwnProperty(key)) {
+                    total[key] += quantity;
+                    total.earned += earned;
+                    if (date.getFullYear() === now.getFullYear()) {
+                        thisYear[key] += quantity;
+                        thisYear.earned += earned;
+                        if (date.getMonth() === now.getMonth()) {
+                            thisMonth[key] += quantity;
+                            thisMonth.earned += earned;
+                        }
+                    }
+                }
+            });
+
+            return { thisMonth, thisYear, total };
+        }
+
+        function loadPickup() {
+                contentDiv.innerHTML = `
+  <div id="main" class="flex justify-center">
+    <div id="container" class="max-w-3xl m-auto py-9 mb-10 px-2">
+      <div id="step" class="flex justify-between py-3">
+        <div class="flex gap-2 text-2xl font-bold text-white">
+          <button class="bg-green-400 rounded-full px-3 py-1">1</button>
+          <button class="bg-green-400 rounded-full px-3 py-1">2</button>
+          <button class="bg-green-400 rounded-full px-3 py-1">3</button>
+        </div>
+        <div>
+          <p>Step 1 of 3</p>
+        </div>
+      </div>
+      <div id="picup-title">
+        <h1 class="text-3xl font-bold py-2">Waste Details</h1>
+        <p class="text-gray-600 py-2">Tell us what you want to recycle</p>
+        <h3 class="text-1xl font-bold py-2">Waste Types (Select Multiple)</h3>
+      </div>
+      <div id="wasteTypes" class="grid grid-cols-2 gap-4">
+        <!-- left colomn -->
+        <div class="space-y-3">
+          <label class="flex border-2 p-2 rounded-2xl block cursor-pointer">
+            <div class="">
+              <input type="checkbox"
+                class="appearance-none w-5 h-5 border-2 rounded-full checked:bg-green-500 checked:border-green-600 cursor-pointer">
+            </div>
+            <div class="px-2 bg-white">
+              <h5 class="font-bold ">Plastic</h5>
+              <p>15TK/kg - 5 points/item</p>
+            </div>
+          </label>
+          <label class="flex border-2 p-2 rounded-2xl block cursor-pointer">
+            <div class="">
+              <input type="checkbox"
+                class="appearance-none w-5 h-5 border-2 rounded-full checked:bg-green-500 checked:border-green-600 cursor-pointer">
+            </div>
+            <div class="px-2 bg-white">
+              <h5 class="font-bold ">Plastic</h5>
+              <p>15TK/kg - 5 points/item</p>
+            </div>
+          </label>
+          <label class="flex border-2 p-2 rounded-2xl block cursor-pointer">
+            <div class="">
+              <input type="checkbox"
+                class="appearance-none w-5 h-5 border-2 rounded-full checked:bg-green-500 checked:border-green-600 cursor-pointer">
+            </div>
+            <div class="px-2 bg-white">
+              <h5 class="font-bold ">Plastic</h5>
+              <p>15TK/kg - 5 points/item</p>
+            </div>
+          </label>
+        </div>
+        <div class="space-y-3">
+          <label class="flex border-2 p-2 rounded-2xl block cursor-pointer">
+            <div class="">
+              <input type="checkbox"
+                class="appearance-none w-5 h-5 border-2 rounded-full checked:bg-green-500 checked:border-green-600 cursor-pointer">
+            </div>
+            <div class="px-2 bg-white">
+              <h5 class="font-bold ">Plastic</h5>
+              <p>15TK/kg - 5 points/item</p>
+            </div>
+          </label>
+          <label class="flex border-2 p-2 rounded-2xl block cursor-pointer">
+            <div class="">
+              <input type="checkbox"
+                class="appearance-none w-5 h-5 border-2 rounded-full checked:bg-green-500 checked:border-green-600 cursor-pointer">
+            </div>
+            <div class="px-2 bg-white">
+              <h5 class="font-bold ">Plastic</h5>
+              <p>15TK/kg - 5 points/item</p>
+            </div>
+          </label>
+          <label class="flex border-2 p-2 rounded-2xl block cursor-pointer">
+            <div class="">
+              <input type="checkbox"
+                class="appearance-none w-5 h-5 border-2 rounded-full checked:bg-green-500 checked:border-green-600 cursor-pointer">
+            </div>
+            <div class="px-2 bg-white">
+              <h5 class="font-bold ">Plastic</h5>
+              <p>15TK/kg - 5 points/item</p>
+            </div>
+          </label>
+        </div>
+
+      </div>
+
+      <!-- <div class="my-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Estimated Quantity (kg)</label>
+            <select class="w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                <option type="hidden" value="" disabled selected>Select quantity in kg</option>
+                <option>1-2</option>
+                <option>3-5</option>
+                <option>6-10</option>
+                <option>10+</option>
+            </select>
+        </div> -->
+      <div class="my-6">
+        <label class="block text-sm font-medium text-gray-700 mb-2">Estimated Quantity (kg)</label>
+        <div class="relative">
+          <!-- Custom select trigger -->
+          <div id="selectTrigger"
+            class="w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 cursor-pointer flex justify-between items-center"
+            tabindex="0">
+            <span id="selectedText" class="text-gray-500">Select quantity in kg</span>
+            <svg id="dropdownIcon" class="w-5 h-5 text-gray-400 transition-transform duration-200" fill="none"
+              stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
+          <!-- Options list -->
+          <ul id="optionsList"
+            class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-40 overflow-y-auto hidden">
+            <li class="px-3 py-2 text-sm cursor-pointer hover:bg-gray-100" data-value="1-2">1-2</li>
+            <li class="px-3 py-2 text-sm cursor-pointer hover:bg-gray-100" data-value="3-5">3-5</li>
+            <li class="px-3 py-2 text-sm cursor-pointer hover:bg-gray-100" data-value="6-10">6-10</li>
+            <li class="px-3 py-2 text-sm cursor-pointer hover:bg-gray-100" data-value="10+">10+</li>
+          </ul>
+          <!-- Hidden input for form submission -->
+          <input type="hidden" id="selectedValue" name="quantity" value="">
+        </div>
+      </div>
+
+
+      <button
+        class="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-md transition duration-200">
+        Continue
+      </button>
+    </div>
+  </div>
+            `;
+            }
+
+        async function loadProfile() {
+            contentDiv.innerHTML = '<h1 class="text-2xl font-bold mb-4">Profile</h1><p>Loading...</p>';
+            try {
+                const res = await fetch('http://localhost:5000/api/auth/profile', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    const user = await res.json();
+                    contentDiv.innerHTML = `
+                        <h1 class="text-2xl font-bold mb-4">Profile</h1>
+                        <p>Name: ${user.name}</p>
+                        <p>Email: ${user.email}</p>
+                        <p>Phone: ${user.phone}</p>
+                        <p>Location: ${user.location}</p>
+                    `;
+                } else {
+                    contentDiv.innerHTML = '<p>Failed to load profile.</p>';
+                }
+            } catch (err) {
+                contentDiv.innerHTML = '<p>Error loading profile.</p>';
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem('authToken');
+            window.location.href = '../../index.html';
+        }
+
+        // Load dashboard by default
+        loadDashboard();
+    </script>
 </body>
 
 </html>
