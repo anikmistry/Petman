@@ -9,57 +9,8 @@
     content="Transform waste management with PETman. Fast, reliable, and eco-friendly waste collection and recycling services for homes and businesses." />
   <link rel="icon" type="image/png" href="./src/assets/petmanlogo.png" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./src/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <style>
-    body {
-      scroll-behavior: smooth;
-    }
-
-    .gradient-green {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    }
-
-    .hover-lift {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .hover-lift:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.2);
-    }
-
-    /* Account card & form animations */
-    .account-card {
-      transform: translateY(12px);
-      opacity: 0;
-      transition: transform 420ms cubic-bezier(.22, 1, .36, 1), opacity 420ms cubic-bezier(.22, 1, .36, 1);
-    }
-
-    .account-card.enter {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    .form-anim {
-      transition: opacity 280ms ease, transform 280ms ease, max-height 320ms ease;
-      overflow: hidden;
-    }
-
-    .form-anim.show {
-      opacity: 1;
-      transform: translateY(0);
-      max-height: 1000px;
-      pointer-events: auto;
-    }
-
-    .form-anim.hide {
-      opacity: 0;
-      transform: translateY(-8px);
-      max-height: 0;
-      pointer-events: none;
-    }
-  </style>
 </head>
 
 <body class="antialiased text-gray-800 bg-gray-50">
@@ -114,10 +65,6 @@
             <p class="text-xl text-green-50 mb-8">PETman revolutionizes waste collection with cutting-edge technology,
               eco-friendly practices, and 24/7 support.</p>
             <div class="flex flex-col sm:flex-row gap-4 mb-12">
-              <a href="#contact"
-                class="inline-flex items-center justify-center gap-2 bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:shadow-xl transition">
-                <i class="fas fa-calendar"></i> Schedule Pickup
-              </a>
               <a href="#services"
                 class="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition">
                 <i class="fas fa-play-circle"></i> Learn More
@@ -434,58 +381,6 @@
         </div>
       </div>
     </section>
-    <!-- Contact -->
-    <section id="contact" class="py-20 bg-gradient-green">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-4xl font-bold text-black text-center mb-12">Ready to Transform Your Waste?</h2>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-8">
-            <form id="contact-form" class="space-y-4">
-              <input id="name" type="text" placeholder="Full Name" required
-                class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-white" />
-              <input id="email" type="email" placeholder="Email" required
-                class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-white" />
-              <input id="phone" type="tel" placeholder="Phone"
-                class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-white" />
-              <textarea id="details" rows="4" placeholder="Details..."
-                class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-white resize-none"></textarea>
-              <button type="submit"
-                class="w-full bg-white text-green-600 px-6 py-3 rounded-lg font-bold hover:bg-green-50">
-                <i class="fas fa-calendar mr-2"></i> Schedule Pickup
-              </button>
-              <p id="form-msg" class="text-sm text-white text-center"></p>
-            </form>
-          </div>
-          <div class="text-black">
-            <h3 class="text-2xl font-bold mb-8">Contact Info</h3>
-            <div class="space-y-6">
-              <div class="flex items-start gap-4">
-                <i class="fas fa-map-marker-alt text-2xl mt-1"></i>
-                <div>
-                  <h4 class="font-bold">Address</h4>
-                  <p class="text-gray-800">123 Green Street, Eco City</p>
-                </div>
-              </div>
-              <div class="flex items-start gap-4">
-                <i class="fas fa-phone text-2xl mt-1"></i>
-                <div>
-                  <h4 class="font-bold">Phone</h4>
-                  <p class="text-gray-800">+1 (555) 123-4567</p>
-                </div>
-              </div>
-              <div class="flex items-start gap-4">
-                <i class="fas fa-envelope text-2xl mt-1"></i>
-                <div>
-                  <h4 class="font-bold">Email</h4>
-                  <p class="text-gray-800">info@petman.com</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Footer -->
     <footer class="bg-gray-900 text-gray-300">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">

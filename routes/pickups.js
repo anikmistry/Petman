@@ -6,9 +6,11 @@ const Pickup = require('../models/Pickup');
 // POST /api/pickups - create a pickup (authenticated)
 router.post('/', auth, async (req, res) => {
   try {
-    const { address, phone, details, scheduledFor } = req.body;
+    const { wasteType, quantity, address, phone, details, scheduledFor } = req.body;
     const pickup = new Pickup({
       user: req.user.id,
+      wasteType,
+      quantity,
       address,
       phone,
       details,

@@ -1,9 +1,0 @@
-.ud-header { background: #fff; border-bottom: 1px solid #e6e6e6; }
-.ud-container { max-width: 1100px; margin: 0 auto; padding: 0.75rem 1rem; }
-.ud-header .ud-container { display: flex; align-items: center; justify-content: space-between; }
-.logo { font-weight: 700; color: #059669; font-size: 1.25rem; }
-.ud-nav a { margin-left: 1rem; color: #334155; text-decoration: none; }
-.ud-main { background: #f0fdf4; min-height: calc(100vh - 64px); padding: 1rem 0; }
-.ud-grid { display: flex; gap: 1rem; }
-.ud-sidebar { width: 220px; background: #fff; border: 1px solid #d1fae5; padding: 1rem; border-radius: 8px; }
-.ud-content { flex: 1; background: #fff; border: 1px solid #d1fae5; padding: 1rem; border-radius: 8px; }

@@ -9,57 +9,8 @@
         content="Transform waste management with PETman. Fast, reliable, and eco-friendly waste collection and recycling services for homes and businesses." />
     <link rel="icon" type="image/png" href="./src/assets/petmanlogo.png" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <style>
-        body {
-            scroll-behavior: smooth;
-        }
-
-        .gradient-green {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-        }
-
-        .hover-lift {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .hover-lift:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.2);
-        }
-
-        /* Account card & form animations */
-        .account-card {
-            transform: translateY(12px);
-            opacity: 0;
-            transition: transform 420ms cubic-bezier(.22, 1, .36, 1), opacity 420ms cubic-bezier(.22, 1, .36, 1);
-        }
-
-        .account-card.enter {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .form-anim {
-            transition: opacity 280ms ease, transform 280ms ease, max-height 320ms ease;
-            overflow: hidden;
-        }
-
-        .form-anim.show {
-            opacity: 1;
-            transform: translateY(0);
-            max-height: 1000px;
-            pointer-events: auto;
-        }
-
-        .form-anim.hide {
-            opacity: 0;
-            transform: translateY(-8px);
-            max-height: 0;
-            pointer-events: none;
-        }
-    </style>
 </head>
 
 <body class="bg-green-100">
@@ -111,8 +62,8 @@
     </header>
     <section class="bg-green-100 h-full max-w-full">
         <div class="max-w-7xl mx-auto">
-            <div id="maindiv" class="flex  my-4  min-h-screen">
-                <div id="menudiv" class="w-64 bg-green-600 text-white p-4">
+            <div id="maindiv" class="flex min-h-screen">
+                <div id="menudiv" class="w-64 min-h-screen bg-green-600 text-white p-4 fixed top-0 left-0 z-40 flex flex-col">
                     <h2 class="text-xl font-bold mb-6">Menu</h2>
                     <ul class="space-y-4">
                         <li><button id="menu-dashboard"
@@ -129,7 +80,7 @@
                         </li>
                     </ul>
                 </div>
-                <div id="contentdiv" class="flex-1 p-6 bg-white">
+                <div id="contentdiv" class="flex-1 p-6 bg-white" style="margin-left: 16rem; width: calc(100vw - 16rem);">
                     <!-- Content will be loaded here -->
                 </div>
             </div>
@@ -137,12 +88,12 @@
     </section>
     <script>
         const token = sessionStorage.getItem('authToken');
-        if (!token) {
-            window.location.href = '../../index.html';
-        }
-
         const contentDiv = document.getElementById('contentdiv');
         const menuButtons = document.querySelectorAll('#menudiv button');
+
+        if (!token) {
+            contentDiv.innerHTML = '<p>Error loading dashboard.</p>';
+        }
 
         menuButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -168,6 +119,67 @@
             }
         }
 
+        function renderDashboard(stats, period) {
+            const periodText = period === 'total' ? 'All Time' : period === 'thisMonth' ? 'This Month' : 'This Year';
+            const data = stats[period];
+            const totalWaste = data.plasticBottles + data.paperProducts + data.electronics + data.usedClothes + data.metalItems + data.cardboard;
+            contentDiv.innerHTML = `
+                <h1 class="text-3xl font-bold mb-6 text-green-600">Dashboard</h1>
+                <div class="mb-4">
+                    <button id="btn-month" class="bg-blue-500 text-white px-4 py-2 rounded mr-2 ${period === 'thisMonth' ? 'bg-blue-700' : ''}">This Month</button>
+                    <button id="btn-year" class="bg-blue-500 text-white px-4 py-2 rounded mr-2 ${period === 'thisYear' ? 'bg-blue-700' : ''}">This Year</button>
+                    <button id="btn-total" class="bg-green-500 text-white px-4 py-2 rounded ${period === 'total' ? 'bg-green-700' : ''}">Total</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-gradient-to-r from-blue-400 to-blue-600 text-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-lg font-semibold mb-2">Total Earnings</h3>
+                        <p class="text-3xl font-bold">${data.earned} BDT</p>
+                        <p class="text-sm opacity-80">${periodText}</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-lg font-semibold mb-2">Waste Sold</h3>
+                        <p class="text-3xl font-bold">${totalWaste} kg</p>
+                        <p class="text-sm opacity-80">${periodText}</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-lg border">
+                        <h3 class="text-xl font-bold mb-4 text-gray-700">Waste by Category</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span>Plastic Bottles</span>
+                                <span class="font-semibold">${data.plasticBottles} kg</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Paper Products</span>
+                                <span class="font-semibold">${data.paperProducts} kg</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Electronics</span>
+                                <span class="font-semibold">${data.electronics} kg</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Used Clothes</span>
+                                <span class="font-semibold">${data.usedClothes} kg</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Metal Items</span>
+                                <span class="font-semibold">${data.metalItems} kg</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Cardboard</span>
+                                <span class="font-semibold">${data.cardboard} kg</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            // Add event listeners
+            document.getElementById('btn-month').addEventListener('click', () => renderDashboard(stats, 'thisMonth'));
+            document.getElementById('btn-year').addEventListener('click', () => renderDashboard(stats, 'thisYear'));
+            document.getElementById('btn-total').addEventListener('click', () => renderDashboard(stats, 'total'));
+        }
+
         async function loadDashboard() {
             contentDiv.innerHTML = '<h1 class="text-2xl font-bold mb-4">Dashboard</h1><p>Loading...</p>';
             try {
@@ -177,74 +189,7 @@
                 if (res.ok) {
                     const pickups = await res.json();
                     const stats = calculateStats(pickups);
-                    contentDiv.innerHTML = `
-                        <h1 class="text-3xl font-bold mb-6 text-green-600">Dashboard</h1>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                            <div class="bg-gradient-to-r from-green-400 to-green-600 text-white p-6 rounded-lg shadow-lg">
-                                <h3 class="text-lg font-semibold mb-2">Total Waste Sold</h3>
-                                <p class="text-3xl font-bold">${stats.total.plasticBottles + stats.total.paperProducts + stats.total.electronics + stats.total.usedClothes + stats.total.metalItems + stats.total.cardboard} kg</p>
-                                <p class="text-sm opacity-80">All time</p>
-                            </div>
-                            <div class="bg-gradient-to-r from-blue-400 to-blue-600 text-white p-6 rounded-lg shadow-lg">
-                                <h3 class="text-lg font-semibold mb-2">Total Earnings</h3>
-                                <p class="text-3xl font-bold">${stats.total.earned} BDT</p>
-                                <p class="text-sm opacity-80">All time</p>
-                            </div>
-                            <div class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white p-6 rounded-lg shadow-lg">
-                                <h3 class="text-lg font-semibold mb-2">This Month</h3>
-                                <p class="text-3xl font-bold">${stats.thisMonth.plasticBottles + stats.thisMonth.paperProducts + stats.thisMonth.electronics + stats.thisMonth.usedClothes + stats.thisMonth.metalItems + stats.thisMonth.cardboard} kg</p>
-                                <p class="text-sm opacity-80">Waste sold</p>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            <div class="bg-white p-6 rounded-lg shadow-lg border">
-                                <h3 class="text-xl font-bold mb-4 text-gray-700">Waste by Category</h3>
-                                <div class="space-y-3">
-                                    <div class="flex justify-between">
-                                        <span>Plastic Bottles</span>
-                                        <span class="font-semibold">${stats.total.plasticBottles} kg</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Paper Products</span>
-                                        <span class="font-semibold">${stats.total.paperProducts} kg</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Electronics</span>
-                                        <span class="font-semibold">${stats.total.electronics} kg</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Used Clothes</span>
-                                        <span class="font-semibold">${stats.total.usedClothes} kg</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Metal Items</span>
-                                        <span class="font-semibold">${stats.total.metalItems} kg</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Cardboard</span>
-                                        <span class="font-semibold">${stats.total.cardboard} kg</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="bg-white p-6 rounded-lg shadow-lg border">
-                                <h3 class="text-xl font-bold mb-4 text-gray-700">Earnings Breakdown</h3>
-                                <div class="space-y-3">
-                                    <div class="flex justify-between">
-                                        <span>This Month</span>
-                                        <span class="font-semibold text-green-600">${stats.thisMonth.earned} BDT</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>This Year</span>
-                                        <span class="font-semibold text-blue-600">${stats.thisYear.earned} BDT</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Total</span>
-                                        <span class="font-semibold text-purple-600">${stats.total.earned} BDT</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
+                    renderDashboard(stats, 'total');
                 } else {
                     contentDiv.innerHTML = '<p>Failed to load dashboard data.</p>';
                 }
@@ -270,179 +215,312 @@
 
             pickups.forEach(pickup => {
                 const date = new Date(pickup.createdAt);
-                const category = pickup.wasteType.toLowerCase();
+                const wasteTypes = Array.isArray(pickup.wasteType) ? pickup.wasteType : [pickup.wasteType];
                 const quantity = pickup.quantity;
-                const price = prices[category] || 15; // Default to 15 if not found
+                const price = prices[wasteTypes[0].toLowerCase()] || 15; // Use first type for price
                 const earned = quantity * price;
 
-                const key = category.replace(/\s+/g, ''); // Remove spaces for key
-
-                if (total.hasOwnProperty(key)) {
-                    total[key] += quantity;
-                    total.earned += earned;
-                    if (date.getFullYear() === now.getFullYear()) {
-                        thisYear[key] += quantity;
-                        thisYear.earned += earned;
-                        if (date.getMonth() === now.getMonth()) {
-                            thisMonth[key] += quantity;
-                            thisMonth.earned += earned;
+                wasteTypes.forEach(type => {
+                    const category = type.toLowerCase().replace(/\s+/g, '');
+                    if (total.hasOwnProperty(category)) {
+                        total[category] += quantity;
+                        total.earned += earned;
+                        if (date.getFullYear() === now.getFullYear()) {
+                            thisYear[category] += quantity;
+                            thisYear.earned += earned;
+                            if (date.getMonth() === now.getMonth()) {
+                                thisMonth[category] += quantity;
+                                thisMonth.earned += earned;
+                            }
                         }
                     }
-                }
+                });
             });
 
             return { thisMonth, thisYear, total };
         }
 
         function loadPickup() {
-                contentDiv.innerHTML = `
-  <div id="main" class="flex justify-center">
-    <div id="container" class="max-w-3xl m-auto py-9 mb-10 px-2">
-      <div id="step" class="flex justify-between py-3">
-        <div class="flex gap-2 text-2xl font-bold text-white">
-          <button class="bg-green-400 rounded-full px-3 py-1">1</button>
-          <button class="bg-green-400 rounded-full px-3 py-1">2</button>
-          <button class="bg-green-400 rounded-full px-3 py-1">3</button>
-        </div>
-        <div>
-          <p>Step 1 of 3</p>
-        </div>
-      </div>
-      <div id="picup-title">
-        <h1 class="text-3xl font-bold py-2">Waste Details</h1>
-        <p class="text-gray-600 py-2">Tell us what you want to recycle</p>
-        <h3 class="text-1xl font-bold py-2">Waste Types (Select Multiple)</h3>
-      </div>
-      <div id="wasteTypes" class="grid grid-cols-2 gap-4">
-        <!-- left colomn -->
-        <div class="space-y-3">
-          <label class="flex border-2 p-2 rounded-2xl block cursor-pointer">
-            <div class="">
-              <input type="checkbox"
-                class="appearance-none w-5 h-5 border-2 rounded-full checked:bg-green-500 checked:border-green-600 cursor-pointer">
-            </div>
-            <div class="px-2 bg-white">
-              <h5 class="font-bold ">Plastic</h5>
-              <p>15TK/kg - 5 points/item</p>
-            </div>
-          </label>
-          <label class="flex border-2 p-2 rounded-2xl block cursor-pointer">
-            <div class="">
-              <input type="checkbox"
-                class="appearance-none w-5 h-5 border-2 rounded-full checked:bg-green-500 checked:border-green-600 cursor-pointer">
-            </div>
-            <div class="px-2 bg-white">
-              <h5 class="font-bold ">Plastic</h5>
-              <p>15TK/kg - 5 points/item</p>
-            </div>
-          </label>
-          <label class="flex border-2 p-2 rounded-2xl block cursor-pointer">
-            <div class="">
-              <input type="checkbox"
-                class="appearance-none w-5 h-5 border-2 rounded-full checked:bg-green-500 checked:border-green-600 cursor-pointer">
-            </div>
-            <div class="px-2 bg-white">
-              <h5 class="font-bold ">Plastic</h5>
-              <p>15TK/kg - 5 points/item</p>
-            </div>
-          </label>
-        </div>
-        <div class="space-y-3">
-          <label class="flex border-2 p-2 rounded-2xl block cursor-pointer">
-            <div class="">
-              <input type="checkbox"
-                class="appearance-none w-5 h-5 border-2 rounded-full checked:bg-green-500 checked:border-green-600 cursor-pointer">
-            </div>
-            <div class="px-2 bg-white">
-              <h5 class="font-bold ">Plastic</h5>
-              <p>15TK/kg - 5 points/item</p>
-            </div>
-          </label>
-          <label class="flex border-2 p-2 rounded-2xl block cursor-pointer">
-            <div class="">
-              <input type="checkbox"
-                class="appearance-none w-5 h-5 border-2 rounded-full checked:bg-green-500 checked:border-green-600 cursor-pointer">
-            </div>
-            <div class="px-2 bg-white">
-              <h5 class="font-bold ">Plastic</h5>
-              <p>15TK/kg - 5 points/item</p>
-            </div>
-          </label>
-          <label class="flex border-2 p-2 rounded-2xl block cursor-pointer">
-            <div class="">
-              <input type="checkbox"
-                class="appearance-none w-5 h-5 border-2 rounded-full checked:bg-green-500 checked:border-green-600 cursor-pointer">
-            </div>
-            <div class="px-2 bg-white">
-              <h5 class="font-bold ">Plastic</h5>
-              <p>15TK/kg - 5 points/item</p>
-            </div>
-          </label>
-        </div>
+                                contentDiv.innerHTML = `
+    <div class="flex justify-center">
+        <div class="w-full max-w-2xl bg-white rounded-3xl shadow-xl p-8 my-10">
+            <h1 class="text-4xl font-extrabold text-green-700 mb-2 flex items-center gap-2">
+                <i class="ri-recycle-fill text-3xl"></i> Schedule a Pickup
+            </h1>
+            <p class="text-gray-500 mb-6">Select the waste types, quantity, and your available time. We'll handle the rest!</p>
 
-      </div>
+            <div class="mb-8">
+                <h2 class="text-lg font-bold mb-2 text-green-600 flex items-center gap-2"><i class="ri-checkbox-multiple-fill"></i> Waste Types</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 bg-gray-50 hover:bg-green-50 cursor-pointer transition">
+                        <input type="checkbox" name="wasteType" value="plastic bottles" class="accent-green-600 w-5 h-5">
+                        <span class="flex flex-col"><span class="font-semibold">Plastic Bottles</span><span class="text-xs text-gray-400">15TK/kg</span></span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 bg-gray-50 hover:bg-green-50 cursor-pointer transition">
+                        <input type="checkbox" name="wasteType" value="paper products" class="accent-green-600 w-5 h-5">
+                        <span class="flex flex-col"><span class="font-semibold">Paper Products</span><span class="text-xs text-gray-400">10TK/kg</span></span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 bg-gray-50 hover:bg-green-50 cursor-pointer transition">
+                        <input type="checkbox" name="wasteType" value="electronics" class="accent-green-600 w-5 h-5">
+                        <span class="flex flex-col"><span class="font-semibold">Electronics</span><span class="text-xs text-gray-400">50TK/kg</span></span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 bg-gray-50 hover:bg-green-50 cursor-pointer transition">
+                        <input type="checkbox" name="wasteType" value="used clothes" class="accent-green-600 w-5 h-5">
+                        <span class="flex flex-col"><span class="font-semibold">Used Clothes</span><span class="text-xs text-gray-400">20TK/kg</span></span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 bg-gray-50 hover:bg-green-50 cursor-pointer transition">
+                        <input type="checkbox" name="wasteType" value="metal items" class="accent-green-600 w-5 h-5">
+                        <span class="flex flex-col"><span class="font-semibold">Metal Items</span><span class="text-xs text-gray-400">25TK/kg</span></span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 bg-gray-50 hover:bg-green-50 cursor-pointer transition">
+                        <input type="checkbox" name="wasteType" value="cardboard" class="accent-green-600 w-5 h-5">
+                        <span class="flex flex-col"><span class="font-semibold">Cardboard</span><span class="text-xs text-gray-400">5TK/kg</span></span>
+                    </label>
+                </div>
+            </div>
 
-      <!-- <div class="my-6">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Estimated Quantity (kg)</label>
-            <select class="w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
-                <option type="hidden" value="" disabled selected>Select quantity in kg</option>
-                <option>1-2</option>
-                <option>3-5</option>
-                <option>6-10</option>
-                <option>10+</option>
-            </select>
-        </div> -->
-      <div class="my-6">
-        <label class="block text-sm font-medium text-gray-700 mb-2">Estimated Quantity (kg)</label>
-        <div class="relative">
-          <!-- Custom select trigger -->
-          <div id="selectTrigger"
-            class="w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 cursor-pointer flex justify-between items-center"
-            tabindex="0">
-            <span id="selectedText" class="text-gray-500">Select quantity in kg</span>
-            <svg id="dropdownIcon" class="w-5 h-5 text-gray-400 transition-transform duration-200" fill="none"
-              stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-            </svg>
-          </div>
-          <!-- Options list -->
-          <ul id="optionsList"
-            class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-40 overflow-y-auto hidden">
-            <li class="px-3 py-2 text-sm cursor-pointer hover:bg-gray-100" data-value="1-2">1-2</li>
-            <li class="px-3 py-2 text-sm cursor-pointer hover:bg-gray-100" data-value="3-5">3-5</li>
-            <li class="px-3 py-2 text-sm cursor-pointer hover:bg-gray-100" data-value="6-10">6-10</li>
-            <li class="px-3 py-2 text-sm cursor-pointer hover:bg-gray-100" data-value="10+">10+</li>
-          </ul>
-          <!-- Hidden input for form submission -->
-          <input type="hidden" id="selectedValue" name="quantity" value="">
+            <div class="mb-8">
+                <h2 class="text-lg font-bold mb-2 text-green-600 flex items-center gap-2"><i class="ri-scale-2-fill"></i> Estimated Quantity</h2>
+                <div class="relative">
+                    <button id="selectTrigger" type="button" class="w-full px-4 py-3 border border-gray-300 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 flex justify-between items-center text-gray-700 font-medium">
+                        <span id="selectedText">Select quantity in kg</span>
+                        <svg id="dropdownIcon" class="w-5 h-5 text-gray-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <ul id="optionsList" class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-40 overflow-y-auto hidden">
+                        <li class="px-4 py-2 text-sm cursor-pointer hover:bg-green-50" data-value="1-2">1-2</li>
+                        <li class="px-4 py-2 text-sm cursor-pointer hover:bg-green-50" data-value="3-5">3-5</li>
+                        <li class="px-4 py-2 text-sm cursor-pointer hover:bg-green-50" data-value="6-10">6-10</li>
+                        <li class="px-4 py-2 text-sm cursor-pointer hover:bg-green-50" data-value="10+">10+</li>
+                    </ul>
+                    <input type="hidden" id="selectedValue" name="quantity" value="">
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h2 class="text-lg font-bold mb-2 text-green-600 flex items-center gap-2"><i class="ri-time-fill"></i> Available Time</h2>
+                <input type="datetime-local" id="availableTime" name="availableTime" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
+            </div>
+
+            <div class="mb-8">
+                <h2 class="text-lg font-bold mb-2 text-green-600 flex items-center gap-2"><i class="ri-information-fill"></i> Additional Details</h2>
+                <textarea id="details" name="details" rows="3" placeholder="Any additional details..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 resize-none"></textarea>
+            </div>
+
+            <button id="submitPickup" type="submit" class="w-full bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 text-white font-bold py-3 rounded-xl shadow-lg text-lg transition duration-200 flex items-center justify-center gap-2">
+                <i class="ri-calendar-check-fill text-xl"></i> Schedule Pickup
+            </button>
         </div>
-      </div>
-
-
-      <button
-        class="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-md transition duration-200">
-        Continue
-      </button>
     </div>
-  </div>
-            `;
+                                `;
+            
+            // Custom select functionality
+            const selectTrigger = document.getElementById('selectTrigger');
+            const optionsList = document.getElementById('optionsList');
+            const selectedText = document.getElementById('selectedText');
+            const selectedValue = document.getElementById('selectedValue');
+            const dropdownIcon = document.getElementById('dropdownIcon');
+
+            selectTrigger.addEventListener('click', () => {
+                optionsList.classList.toggle('hidden');
+                dropdownIcon.classList.toggle('rotate-180');
+            });
+
+            optionsList.addEventListener('click', (e) => {
+                if (e.target.tagName === 'LI') {
+                    selectedText.textContent = e.target.textContent;
+                    selectedValue.value = e.target.dataset.value;
+                    optionsList.classList.add('hidden');
+                    dropdownIcon.classList.remove('rotate-180');
+                }
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!selectTrigger.contains(e.target) && !optionsList.contains(e.target)) {
+                    optionsList.classList.add('hidden');
+                    dropdownIcon.classList.remove('rotate-180');
+                }
+            });
+
+            // Submit pickup
+            document.getElementById('submitPickup').addEventListener('click', async () => {
+                const wasteTypes = Array.from(document.querySelectorAll('input[name="wasteType"]:checked')).map(cb => cb.value);
+                const quantity = selectedValue.value;
+                const availableTime = document.getElementById('availableTime').value;
+                const details = document.getElementById('details').value;
+
+                if (wasteTypes.length === 0 || !quantity || !availableTime) {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+
+                try {
+                    const res = await fetch('http://localhost:5000/api/pickups', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            wasteType: wasteTypes,
+                            quantity: parseInt(quantity.split('-')[0]), // Take the lower bound or handle properly
+                            details,
+                            scheduledFor: availableTime
+                        })
+                    });
+
+                    if (res.ok) {
+                        alert('Pickup scheduled successfully!');
+                        loadDashboard(); // Reload dashboard
+                    } else {
+                        const error = await res.json();
+                        alert('Failed to schedule pickup: ' + (error.message || 'Unknown error'));
+                    }
+                } catch (err) {
+                    alert('Error scheduling pickup.');
+                }
+            });
             }
 
         async function loadProfile() {
             contentDiv.innerHTML = '<h1 class="text-2xl font-bold mb-4">Profile</h1><p>Loading...</p>';
             try {
-                const res = await fetch('http://localhost:5000/api/auth/profile', {
+                const res = await fetch('http://localhost:5000/api/auth/me', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (res.ok) {
                     const user = await res.json();
                     contentDiv.innerHTML = `
                         <h1 class="text-2xl font-bold mb-4">Profile</h1>
-                        <p>Name: ${user.name}</p>
-                        <p>Email: ${user.email}</p>
-                        <p>Phone: ${user.phone}</p>
-                        <p>Location: ${user.location}</p>
+                        <div id="message" class="mb-4 hidden"></div>
+                        
+                        <form id="profileForm" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Name</label>
+                                <input type="text" id="name" value="${user.name || ''}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Email</label>
+                                <input type="email" id="email" value="${user.email || ''}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Phone</label>
+                                <input type="text" id="phone" value="${user.phone || ''}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Location</label>
+                                <input type="text" id="location" value="${user.location || ''}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500">
+                            </div>
+                            <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-md transition duration-200">Update Profile</button>
+                        </form>
+                        
+                        <hr class="my-8">
+                        
+                        <h2 class="text-xl font-bold mb-4">Change Password</h2>
+                        <form id="passwordForm" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Current Password</label>
+                                <input type="password" id="currentPassword" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">New Password</label>
+                                <input type="password" id="newPassword" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Confirm New Password</label>
+                                <input type="password" id="confirmPassword" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500" required>
+                            </div>
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition duration-200">Change Password</button>
+                        </form>
                     `;
+                    
+                    // Add event listeners for forms
+                    document.getElementById('profileForm').addEventListener('submit', async (e) => {
+                        e.preventDefault();
+                        const messageDiv = document.getElementById('message');
+                        messageDiv.classList.add('hidden');
+                        
+                        const formData = {
+                            name: document.getElementById('name').value,
+                            email: document.getElementById('email').value,
+                            phone: document.getElementById('phone').value,
+                            location: document.getElementById('location').value
+                        };
+                        
+                        try {
+                            const updateRes = await fetch('http://localhost:5000/api/auth/profile', {
+                                method: 'PUT',
+                                headers: { 
+                                    'Authorization': `Bearer ${token}`,
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(formData)
+                            });
+                            
+                            if (updateRes.ok) {
+                                messageDiv.className = 'mb-4 text-green-600';
+                                messageDiv.textContent = 'Profile updated successfully!';
+                                messageDiv.classList.remove('hidden');
+                            } else {
+                                const error = await updateRes.json();
+                                messageDiv.className = 'mb-4 text-red-600';
+                                messageDiv.textContent = error.message || 'Failed to update profile.';
+                                messageDiv.classList.remove('hidden');
+                            }
+                        } catch (err) {
+                            messageDiv.className = 'mb-4 text-red-600';
+                            messageDiv.textContent = 'Error updating profile.';
+                            messageDiv.classList.remove('hidden');
+                        }
+                    });
+                    
+                    document.getElementById('passwordForm').addEventListener('submit', async (e) => {
+                        e.preventDefault();
+                        const messageDiv = document.getElementById('message');
+                        messageDiv.classList.add('hidden');
+                        
+                        const newPassword = document.getElementById('newPassword').value;
+                        const confirmPassword = document.getElementById('confirmPassword').value;
+                        
+                        if (newPassword !== confirmPassword) {
+                            messageDiv.className = 'mb-4 text-red-600';
+                            messageDiv.textContent = 'New passwords do not match.';
+                            messageDiv.classList.remove('hidden');
+                            return;
+                        }
+                        
+                        const passwordData = {
+                            currentPassword: document.getElementById('currentPassword').value,
+                            newPassword: newPassword
+                        };
+                        
+                        try {
+                            const updateRes = await fetch('http://localhost:5000/api/auth/change-password', {
+                                method: 'PUT',
+                                headers: { 
+                                    'Authorization': `Bearer ${token}`,
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(passwordData)
+                            });
+                            
+                            if (updateRes.ok) {
+                                messageDiv.className = 'mb-4 text-green-600';
+                                messageDiv.textContent = 'Password changed successfully!';
+                                messageDiv.classList.remove('hidden');
+                                document.getElementById('passwordForm').reset();
+                            } else {
+                                const error = await updateRes.json();
+                                messageDiv.className = 'mb-4 text-red-600';
+                                messageDiv.textContent = error.message || 'Failed to change password.';
+                                messageDiv.classList.remove('hidden');
+                            }
+                        } catch (err) {
+                            messageDiv.className = 'mb-4 text-red-600';
+                            messageDiv.textContent = 'Error changing password.';
+                            messageDiv.classList.remove('hidden');
+                        }
+                    });
                 } else {
                     contentDiv.innerHTML = '<p>Failed to load profile.</p>';
                 }
