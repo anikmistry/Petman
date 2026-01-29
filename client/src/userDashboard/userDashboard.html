@@ -60,11 +60,29 @@
             </div>
         </div>
     </header>
-    <section class="bg-green-100 h-full max-w-full">
+    <section class="bg-green-100 h-full max-w-full relative">
         <div class="max-w-7xl mx-auto">
-            <div id="maindiv" class="flex min-h-screen">
-                <div id="menudiv" class="w-64 min-h-screen bg-green-600 text-white p-4 fixed top-0 left-0 z-40 flex flex-col">
-                    <h2 class="text-xl font-bold mb-6">Menu</h2>
+            <!-- Mobile Dashboard Toggle -->
+            <div class="md:hidden p-4 bg-white shadow-sm flex items-center justify-between">
+                <h2 class="text-xl font-bold text-green-600">Dashboard</h2>
+                <button id="dashboard-menu-toggle" class="p-2 rounded hover:bg-gray-100">
+                    <i class="ri-menu-line text-2xl text-green-600"></i>
+                </button>
+            </div>
+
+            <div id="maindiv" class="flex min-h-screen relative">
+                <!-- Sidebar Overlay -->
+                <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden md:hidden"></div>
+
+                <!-- Sidebar -->
+                <div id="menudiv"
+                    class="w-64 min-h-screen bg-green-600 text-white p-4 fixed top-0 left-0 z-40 transform -translate-x-full md:translate-x-0 transition-transform duration-300 flex flex-col h-full">
+                    <div class="flex justify-between items-center mb-6 md:block">
+                        <h2 class="text-xl font-bold">Menu</h2>
+                        <button id="close-sidebar" class="md:hidden text-white hover:text-gray-200">
+                            <i class="ri-close-line text-2xl"></i>
+                        </button>
+                    </div>
                     <ul class="space-y-4">
                         <li><button id="menu-dashboard"
                                 class="w-full text-left py-2 px-4 rounded hover:bg-green-700 transition">Dashboard</button>
@@ -78,9 +96,16 @@
                         <li><button id="menu-logout"
                                 class="w-full text-left py-2 px-4 rounded hover:bg-green-700 transition bg-red-500 hover:bg-red-600">Logout</button>
                         </li>
+                        <li class="mt-auto pt-4 border-t border-green-500 md:hidden">
+                            <a href="../../index.html"
+                                class="block w-full text-left py-2 px-4 rounded hover:bg-green-700 transition">Back to
+                                Home</a>
+                        </li>
                     </ul>
                 </div>
-                <div id="contentdiv" class="flex-1 p-6 bg-white" style="margin-left: 16rem; width: calc(100vw - 16rem);">
+
+                <!-- Content Area -->
+                <div id="contentdiv" class="flex-1 p-6 bg-white w-full md:ml-64 min-h-screen">
                     <!-- Content will be loaded here -->
                 </div>
             </div>
@@ -89,7 +114,35 @@
     <script>
         const token = sessionStorage.getItem('authToken');
         const contentDiv = document.getElementById('contentdiv');
-        const menuButtons = document.querySelectorAll('#menudiv button');
+        const menuButtons = document.querySelectorAll('#menudiv button:not(#close-sidebar)');
+
+        // Sidebar Elements
+        const sidebar = document.getElementById('menudiv');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        const menuToggle = document.getElementById('dashboard-menu-toggle');
+        const closeSidebarBtn = document.getElementById('close-sidebar');
+
+        // Toggle Sidebar Function
+        function toggleSidebar(show) {
+            if (show) {
+                sidebar.classList.remove('-translate-x-full');
+                sidebarOverlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                sidebarOverlay.classList.add('hidden');
+            }
+        }
+
+        // Event Listeners for Sidebar
+        if (menuToggle) {
+            menuToggle.addEventListener('click', () => toggleSidebar(true));
+        }
+        if (closeSidebarBtn) {
+            closeSidebarBtn.addEventListener('click', () => toggleSidebar(false));
+        }
+        if (sidebarOverlay) {
+            sidebarOverlay.addEventListener('click', () => toggleSidebar(false));
+        }
 
         if (!token) {
             contentDiv.innerHTML = '<p>Error loading dashboard.</p>';
@@ -98,6 +151,10 @@
         menuButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const menu = button.id.replace('menu-', '');
+                // Close sidebar on mobile when a menu item is clicked
+                if (window.innerWidth < 768) {
+                    toggleSidebar(false);
+                }
                 loadContent(menu);
             });
         });
@@ -241,7 +298,7 @@
         }
 
         function loadPickup() {
-                                contentDiv.innerHTML = `
+            contentDiv.innerHTML = `
     <div class="flex justify-center">
         <div class="w-full max-w-2xl bg-white rounded-3xl shadow-xl p-8 my-10">
             <h1 class="text-4xl font-extrabold text-green-700 mb-2 flex items-center gap-2">
@@ -312,7 +369,7 @@
         </div>
     </div>
                                 `;
-            
+
             // Custom select functionality
             const selectTrigger = document.getElementById('selectTrigger');
             const optionsList = document.getElementById('optionsList');
@@ -380,7 +437,7 @@
                     alert('Error scheduling pickup.');
                 }
             });
-            }
+        }
 
         async function loadProfile() {
             contentDiv.innerHTML = '<h1 class="text-2xl font-bold mb-4">Profile</h1><p>Loading...</p>';
@@ -433,30 +490,30 @@
                             <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition duration-200">Change Password</button>
                         </form>
                     `;
-                    
+
                     // Add event listeners for forms
                     document.getElementById('profileForm').addEventListener('submit', async (e) => {
                         e.preventDefault();
                         const messageDiv = document.getElementById('message');
                         messageDiv.classList.add('hidden');
-                        
+
                         const formData = {
                             name: document.getElementById('name').value,
                             email: document.getElementById('email').value,
                             phone: document.getElementById('phone').value,
                             location: document.getElementById('location').value
                         };
-                        
+
                         try {
                             const updateRes = await fetch('http://localhost:5000/api/auth/profile', {
                                 method: 'PUT',
-                                headers: { 
+                                headers: {
                                     'Authorization': `Bearer ${token}`,
                                     'Content-Type': 'application/json'
                                 },
                                 body: JSON.stringify(formData)
                             });
-                            
+
                             if (updateRes.ok) {
                                 messageDiv.className = 'mb-4 text-green-600';
                                 messageDiv.textContent = 'Profile updated successfully!';
@@ -473,37 +530,37 @@
                             messageDiv.classList.remove('hidden');
                         }
                     });
-                    
+
                     document.getElementById('passwordForm').addEventListener('submit', async (e) => {
                         e.preventDefault();
                         const messageDiv = document.getElementById('message');
                         messageDiv.classList.add('hidden');
-                        
+
                         const newPassword = document.getElementById('newPassword').value;
                         const confirmPassword = document.getElementById('confirmPassword').value;
-                        
+
                         if (newPassword !== confirmPassword) {
                             messageDiv.className = 'mb-4 text-red-600';
                             messageDiv.textContent = 'New passwords do not match.';
                             messageDiv.classList.remove('hidden');
                             return;
                         }
-                        
+
                         const passwordData = {
                             currentPassword: document.getElementById('currentPassword').value,
                             newPassword: newPassword
                         };
-                        
+
                         try {
                             const updateRes = await fetch('http://localhost:5000/api/auth/change-password', {
                                 method: 'PUT',
-                                headers: { 
+                                headers: {
                                     'Authorization': `Bearer ${token}`,
                                     'Content-Type': 'application/json'
                                 },
                                 body: JSON.stringify(passwordData)
                             });
-                            
+
                             if (updateRes.ok) {
                                 messageDiv.className = 'mb-4 text-green-600';
                                 messageDiv.textContent = 'Password changed successfully!';

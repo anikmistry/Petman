@@ -64,6 +64,17 @@ router.get('/me', auth, async (req, res) => {
   }
 });
 
+// GET /api/auth/count
+router.get('/count', async (req, res) => {
+  try {
+    const count = await User.countDocuments();
+    res.json({ count });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 // PUT /api/auth/profile
 router.put('/profile', auth, async (req, res) => {
   try {

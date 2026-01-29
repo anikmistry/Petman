@@ -27,8 +27,9 @@
           <a href="#mission" class="text-gray-700 hover:text-green-600 transition font-bold">Mission</a>
           <a href="#traction" class="text-gray-700 hover:text-green-600 transition font-bold">Traction</a>
           <a href="#team" class="text-gray-700 hover:text-green-600 transition font-bold">Our Team</a>
-          <a href="#shop" class="text-gray-700 hover:text-green-600 transition font-bold">Shop</a>
-          <a id="dashboard-link" href="./src/userDashboard/userDashboard.html" class="text-gray-700 hover:text-green-600 transition font-bold hidden">Dashboard</a>
+
+          <a id="dashboard-link" href="./src/userDashboard/userDashboard.html"
+            class="text-gray-700 hover:text-green-600 transition font-bold hidden">Dashboard</a>
           <!-- <a href="#" class="ml-4 bg-gradient-green text-white px-6 py-2 rounded-lg hover:shadow-lg transition">Get Started</a> -->
         </nav>
         <button id="nav-toggle" class="md:hidden p-2 rounded-lg border border-gray-300">
@@ -47,7 +48,7 @@
         <a href="#mission" class="text-gray-700 py-2 font-bold">Mission</a>
         <a href="#traction" class="text-gray-700 py-2 font-bold">Traction</a>
         <a href="#team" class="text-gray-700 py-2 font-bold">Our Team</a>
-        <a href="#shop" class="text-gray-700 py-2 font-bold">Shop</a>
+
         <a id="dashboard-link-mobile" href="#dashboard" class="text-gray-700 py-2 font-bold hidden">Dashboard</a>
         <a href="#" class="mt-2 bg-gradient-green text-white px-6 py-2 rounded-lg text-center">Get Started</a>
       </div>
@@ -60,7 +61,6 @@
     <!-- Hero Section -->
     <section id="home" class=" pt-2 pb-32 gradient-green">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <img class="rounded-2xl pb-2" src="./src/assets/petmangif.gif" alt="">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-top">
           <div class="text-white">
             <h1 class="text-5xl sm:text-6xl font-extrabold leading-tight mb-4">"Recycling Made Simple, Safe &
@@ -68,9 +68,9 @@
             <p class="text-xl text-green-50 mb-8">PETman revolutionizes waste collection with cutting-edge technology,
               eco-friendly practices, and 24/7 support.</p>
             <div class="flex flex-col sm:flex-row gap-4 mb-12">
-              <a href="#services"
-                class="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition">
-                <i class="fas fa-play-circle"></i> Learn More
+              <a href="#"
+                class="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-8 py-3 rounded-lg  hover:bg-white hover:text-green-600 transition">
+                <i class="ri-google-play-line text-2xl"></i> <span class="font-bold">Download App</span>
               </a>
             </div>
             <!-- <div class="grid grid-cols-3 gap-6 text-green-500">
@@ -127,7 +127,7 @@
                   class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none" />
                 <input id="signup-phone" type="tel" placeholder="Phone Number" required
                   class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none" />
-                <input id="signup-location" type="text" placeholder="Location"
+                <input id="signup-location" type="text" placeholder="Address"
                   class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none" />
                 <input id="signup-password" type="password" placeholder="Password" required
                   class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none" />
@@ -142,6 +142,122 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
+    <!-- why petman -->
+    <section id="services" class="py-10 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-4xl font-bold text-center mb-2">Why Choose PETman?</h2>
+        <p class="text-gray-600 mb-8 text-center">The easiest way to recycle your waste is fast, reliable, and secure.
+        </p>
+        <!-- Metrics Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          <!-- fast booking -->
+          <div class="text-center p-6 bg-green-50 hover-lift rounded-2xl  border-2 border-gray-200">
+            <div
+              class="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4 hover:shadow-4xl block">
+              <i class="ri-timer-flash-line text-4xl text-green-600"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-green-600 pb-1">Fast Booking</h3>
+            <p class="text-gray-900 mb-1 font-semibold">Schedule Pickup in just a few clicks.</p>
+          </div>
+
+          <!-- fair pricing -->
+          <div class="text-center p-6 bg-green-50 hover-lift rounded-2xl  border-2 border-gray-200">
+            <div
+              class="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4 hover:shadow-4xl block">
+              <i class="ri-hand-coin-line text-4xl text-green-600"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-green-600 pb-1">Fair Pricing</h3>
+            <p class="text-gray-900 mb-1 font-semibold">Get transparent, competitive rates for your recyclables.</p>
+          </div>
+
+          <!-- Verified & Trained -->
+
+          <div class="text-center p-6 bg-green-50 hover-lift rounded-2xl  border-2 border-gray-200">
+            <div
+              class="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4 hover:shadow-4xl block">
+              <i class="ri-verified-badge-line text-4xl text-green-600"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-green-600 pb-1">Verified & Trained</h3>
+            <p class="text-gray-900 mb-1 font-semibold">Trusted Professionals ensuring safe and reliable service</p>
+          </div>
+          <!-- Eco-Conscious Living -->
+          <div class="text-center p-6 bg-green-50 hover-lift rounded-2xl  border-2 border-gray-200">
+            <div
+              class="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4 hover:shadow-4xl block">
+              <i class="ri-home-smile-line text-4xl text-green-600"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-green-600 pb-1">Eco-Conscious Living</h3>
+            <p class="text-gray-900 mb-1 font-semibold"> Make eco-friendly habits part of your family life</p>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+    <!-- gif image -->
+    <section class="bg-sky-100">
+      <div class="max-w-7xl mx-auto text-center">
+        <img class="pt-3 " src="./src/assets/petmangif.gif" alt="">
+      </div>
+    </section>
+    <!-- How to Use PETman in Easy Steps -->
+    <section id="services" class="py-10 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-4xl font-bold text-center mb-2">How To Work PETman</h2>
+        <p class="text-gray-600 mb-8 text-center">Schedule a pickup and recycle effortlessly in just a few steps.
+        </p>
+        <!-- Metrics Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          <!-- fast booking -->
+          <div class="text-center p-6">
+            <div
+              class="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4 hover:shadow-4xl block">
+              <i class="ri-cursor-line text-4xl text-green-600"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-green-600 pb-1">Book a Pickup</h3>
+            <p class="text-gray-900 mb-1 font-semibold">Select your recyclables and schedule a convenient time.</p>
+          </div>
+
+          <!-- fair pricing -->
+          <div class="text-center p-6">
+            <div
+              class="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4 hover:shadow-4xl block">
+              <i class="ri-truck-line text-4xl text-green-600"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-green-600 pb-1">Collector Assigned</h3>
+            <p class="text-gray-900 mb-1 font-semibold">A verified collector is sent to your doorstep.</p>
+          </div>
+
+          <!-- Verified & Trained -->
+
+          <div class="text-center p-6">
+            <div
+              class="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4 hover:shadow-4xl block">
+              <i class="ri-hand-coin-line text-4xl text-green-600"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-green-600 pb-1">Get Paid</h3>
+            <p class="text-gray-900 mb-1 font-semibold">Receive fair payment & rewards for your recyclables.</p>
+          </div>
+          <!-- Eco-Conscious Living -->
+          <div class="text-center p-6">
+            <div
+              class="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4 hover:shadow-4xl block">
+              <i class="ri-recycle-line text-4xl text-green-600"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-green-600 pb-1"> Waste Recycled</h3>
+            <p class="text-gray-900 mb-1 font-semibold">Your waste is processed responsibly, creating a positive
+              environmental impact.</p>
+          </div>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="signin-form"
+            class="inline-flex items-center justify-center gap-2 border-2 border-black text-black px-4 py-2 rounded-lg  hover:bg-green-600 hover:text-white transition">
+            <span class="font-bold text-xl">Book a Pickup</span>
+            <i class="ri-arrow-right-up-line text-2xl"></i>
+          </a>
+        </div>
+      </div>
       </div>
     </section>
     <!-- Mision and visson -->
@@ -172,71 +288,39 @@
       </div>
     </section>
 
-    <!-- traction -->
+    <!-- Our Impact -->
     <section id="traction" class="bg-white py-16 px-4 sm:px-6 lg:px-8">
       <div class="max-w-6xl mx-auto">
         <!-- Section Headline -->
         <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Impact So Far</h2>
-          <p class="text-gray-600 max-w-2xl mx-auto">From small beginnings to meaningful change – here's how we're
-            making a difference in recycling across communities.</p>
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Impact</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">Impact you can see, change you can feel.</p>
         </div>
 
         <!-- Metrics Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-6 lg:gap-8">
           <!-- Recycled Materials -->
-          <div class="text-center p-6 bg-green-50 hover-lift rounded-2xl  border-2 border-gray-200">
-            <div
-              class="mx-auto w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4 hover:shadow-4xl block">
-              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                </path>
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-1">Recycled Materials</h3>
-            <p class="text-2xl font-bold text-green-600">50+ Kgs</p>
+          <div
+            class="text-center grid grid-cols-1 place-content-center p-6 bg-green-50 hover-lift rounded-2xl  border-2 border-gray-200 ">
+            <h3 id="community" class="text-5xl font-bold text-green-600 mb-3">500+</h3>
+            <p class="text-xl font-bold text-gray-900 mb-1">Growing Community
+            </p>
+
           </div>
 
-          <!-- Households Served -->
-          <div class="text-center p-6 bg-green-50 hover-lift rounded-2xl  border-2 border-gray-200">
-            <div class="mx-auto w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M9 5a2 2 0 012-2h2a2 2 0 012 2v2H9V5z"></path>
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-1">Households Served</h3>
-            <p class="text-2xl font-bold text-blue-600">15+ active users</p>
-          </div>
+          <div
+            class="text-center grid grid-cols-1 place-content-center p-6 bg-green-50 hover-lift rounded-2xl  border-2 border-gray-200 ">
+            <h3 id="waste-count" class="text-5xl font-bold text-green-600 mb-3">780+ Kg</h3>
+            <p class="text-xl font-bold text-gray-900 mb-1">Waste From landfill
+            </p>
 
-          <!-- Institutional Partnerships -->
-          <div class="text-center p-6 bg-green-50 hover-lift rounded-2xl  border-2 border-gray-200">
-            <div class="mx-auto w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
-                </path>
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-1">Institutional Partnerships</h3>
-            <p class="text-2xl font-bold text-purple-600">Uttara University</p>
-            <p class="text-sm text-gray-600 mt-1">Reaching 12,000+ students and staff</p>
           </div>
+          <div
+            class="text-center grid grid-cols-1 place-content-center p-6 bg-green-50 hover-lift rounded-2xl  border-2 border-gray-200 ">
+            <h3 id="awareness-count" class="text-5xl font-bold text-green-600 mb-3">50,000+</h3>
+            <p class="text-xl font-bold text-gray-900 mb-1">Awareness Raised
+            </p>
 
-          <!-- Events Covered -->
-          <div class="text-center p-6 bg-green-50 hover-lift rounded-2xl  border-2 border-gray-200">
-            <div class="mx-auto w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-1">Events Covered</h3>
-            <p class="text-2xl font-bold text-indigo-600">3+ community & corporate</p>
-            <p class="text-sm text-gray-600 mt-1">recycling drives</p>
           </div>
         </div>
       </div>
@@ -287,45 +371,14 @@
         </div>
       </div>
     </section>
-    <!-- why choose petman -->
-    <section id="services" class="py-20 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-4xl font-bold text-center mb-16">Why Choose PETman?</h2>
-        <div class="lg:flex  rounded-2xl">
-          <div class="p-4 flex justify-center justify-items-center">
-            <img src="./src/assets/whypetman.jpg" class="w-full h-auto max-w-xl  rounded-2xl shadow-2xl"
-              alt="Why Petman">
-          </div>
-          <div class="lg:pl-20 grid grid-cols-1 items-top rounded-2xl p-4">
-            <div>
-              <h2 class="font-bold text-xl py-2">Good for the Planet</h2>
-              <p class="">We recycle your items responsibly, turning them into eco-friendly products. </p>
-            </div>
-            <div>
-              <h2 class="font-bold text-xl py-2">Easy & Convenient </h2>
-              <p class="">We pick up your items from your home at a day and time that works for you. </p>
-            </div>
-            <div>
-              <h2 class="font-bold text-xl py-2">Safe & Reliable </h2>
-              <p class="">Our trained staff handle your items carefully and weigh them accurately with smart scales.
-              </p>
-            </div>
-            <div>
-              <h2 class="font-bold text-xl py-2">Best Price</h2>
-              <p class="">We give you the best value for your scrap through our trusted recycling partners.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-    </section>
+
 
     <!-- Logo Showcase Slider -->
     <section class="py-20 bg-gradient-to-r from-green-50 via-blue-50 to-green-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold text-gray-900 mb-4">Trusted by Leading Organizations</h2>
-          <p class="text-gray-600 text-lg">Partnering with innovators and leaders in sustainability</p>
+          <h2 class="text-4xl font-bold text-gray-900 mb-4">Supported By</h2>
+          <p class="text-gray-600 text-lg">These amazing organisations are helping us grow and empower more learning every day</p>
         </div>
 
         <!-- Slider Container -->
@@ -335,89 +388,79 @@
             <div class="slider-track flex animate-scroll gap-12 items-center justify-center">
               <!-- Logo 1 -->
               <div class="slider-item min-w-max flex-shrink-0">
-                <img src="./src/assets/logo showcase/acceleratebd_logo-removebg-preview.png" 
-                     alt="Accelerate BD" class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
+                <img src="./src/assets/logo showcase/acceleratebd_logo-removebg-preview.png" alt="Accelerate BD"
+                  class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
               </div>
               <!-- Logo 2 -->
               <div class="slider-item min-w-max flex-shrink-0">
-                <img src="./src/assets/logo showcase/iDE_Global_Solutions.webp" 
-                     alt="iDE Global Solutions" class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
+                <img src="./src/assets/logo showcase/iDE_Global_Solutions.webp" alt="iDE Global Solutions"
+                  class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
               </div>
               <!-- Logo 3 -->
               <div class="slider-item min-w-max flex-shrink-0">
-                <img src="./src/assets/logo showcase/LCP-Logo-Website-12.png" 
-                     alt="LCP" class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
+                <img src="./src/assets/logo showcase/LCP-Logo-Website-12.png" alt="LCP"
+                  class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
               </div>
               <!-- Logo 4 -->
               <div class="slider-item min-w-max flex-shrink-0">
-                <img src="./src/assets/logo showcase/simcubator_logo-1.png" 
-                     alt="Simcubator" class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
+                <img src="./src/assets/logo showcase/simcubator_logo-1.png" alt="Simcubator"
+                  class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
               </div>
               <!-- Logo 5 -->
               <div class="slider-item min-w-max flex-shrink-0">
-                <img src="./src/assets/logo showcase/download.png" 
-                     alt="Partner Logo" class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
+                <img src="./src/assets/logo showcase/download.png" alt="Partner Logo"
+                  class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
               </div>
               <!-- Logo 6 -->
               <div class="slider-item min-w-max flex-shrink-0">
-                <img src="./src/assets/logo showcase/images.png" 
-                     alt="Partner Logo" class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
+                <img src="./src/assets/logo showcase/images.png" alt="Partner Logo"
+                  class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
               </div>
               <!-- Logo 7 - IMG -->
-           
+
               <!-- Logo 8 - WhatsApp Image 1 -->
               <div class="slider-item min-w-max flex-shrink-0">
-                <img src="./src/assets/logo showcase/WhatsApp Image 2026-01-25 at 1.27.26 AM.jpeg" 
-                     alt="Partner Logo" class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300 rounded-lg">
+                <img src="./src/assets/logo showcase/WhatsApp Image 2026-01-25 at 1.27.26 AM.jpeg" alt="Partner Logo"
+                  class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300 rounded-lg">
               </div>
               <!-- Logo 9 - WhatsApp Image 2 -->
               <div class="slider-item min-w-max flex-shrink-0">
-                <img src="./src/assets/logo showcase/WhatsApp Image 2026-01-25 at 1.32.03 AM.jpeg" 
-                     alt="Partner Logo" class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300 rounded-lg">
+                <img src="./src/assets/logo showcase/WhatsApp Image 2026-01-25 at 1.32.03 AM.jpeg" alt="Partner Logo"
+                  class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300 rounded-lg">
               </div>
               <!-- Logo 10 - WhatsApp Image 3 -->
 
 
               <!-- Duplicate for seamless loop -->
               <div class="slider-item min-w-max flex-shrink-0">
-                <img src="./src/assets/logo showcase/acceleratebd_logo-removebg-preview.png" 
-                     alt="Accelerate BD" class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
+                <img src="./src/assets/logo showcase/acceleratebd_logo-removebg-preview.png" alt="Accelerate BD"
+                  class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
               </div>
               <div class="slider-item min-w-max flex-shrink-0">
-                <img src="./src/assets/logo showcase/iDE_Global_Solutions.webp" 
-                     alt="iDE Global Solutions" class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
+                <img src="./src/assets/logo showcase/iDE_Global_Solutions.webp" alt="iDE Global Solutions"
+                  class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
               </div>
               <div class="slider-item min-w-max flex-shrink-0">
-                <img src="./src/assets/logo showcase/LCP-Logo-Website-12.png" 
-                     alt="LCP" class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
+                <img src="./src/assets/logo showcase/LCP-Logo-Website-12.png" alt="LCP"
+                  class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
               </div>
             </div>
           </div>
 
           <!-- Gradient Overlays for smooth edges -->
-          <div class="absolute top-0 left-0 w-20 h-full bg-gradient-to-r from-white via-transparent to-transparent pointer-events-none"></div>
-          <div class="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-white via-transparent to-transparent pointer-events-none"></div>
+          <div
+            class="absolute top-0 left-0 w-20 h-full bg-gradient-to-r from-white via-transparent to-transparent pointer-events-none">
+          </div>
+          <div
+            class="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-white via-transparent to-transparent pointer-events-none">
+          </div>
         </div>
 
         <!-- Stats under slider -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-          <div class="text-center">
-            <div class="text-4xl font-bold text-green-600 mb-2">10+</div>
-            <p class="text-gray-600">Active Partners</p>
-          </div>
-          <div class="text-center">
-            <div class="text-4xl font-bold text-blue-600 mb-2">50K+</div>
-            <p class="text-gray-600">People Impacted</p>
-          </div>
-          <div class="text-center">
-            <div class="text-4xl font-bold text-purple-600 mb-2">15+</div>
-            <p class="text-gray-600">Collaborations</p>
-          </div>
-        </div>
+
       </div>
     </section>
 
-    <!-- shop -->
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-gray-300">

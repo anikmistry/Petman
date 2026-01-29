@@ -18,6 +18,64 @@ function updateDashboardVisibility() {
 document.addEventListener("DOMContentLoaded", function () {
   // Initial check on page load
   updateDashboardVisibility();
+
+  // Reusable animation function with Intersection Observer
+  function observeAndAnimate(elementId, targetValue, suffix = '+') {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+
+    const duration = 2000; // 2 seconds
+    const frameDuration = 1000 / 60; // 60fps
+    const totalFrames = Math.round(duration / frameDuration);
+    const easeOutQuad = t => t * (2 - t);
+    
+    let hasAnimated = false;
+
+    const startAnimation = () => {
+      if (hasAnimated) return;
+      hasAnimated = true;
+      
+      let frame = 0;
+      const animate = () => {
+        frame++;
+        const progress = easeOutQuad(frame / totalFrames);
+        const currentCount = Math.round(targetValue * progress);
+        
+        if (frame < totalFrames) {
+          element.textContent = currentCount.toLocaleString() + suffix;
+          requestAnimationFrame(animate);
+        } else {
+          element.textContent = targetValue.toLocaleString() + suffix;
+        }
+      };
+      animate();
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          startAnimation();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    observer.observe(element);
+  }
+
+  // Fetch and display user count + 500
+  fetch('http://localhost:5000/api/auth/count')
+    .then(res => res.json())
+    .then(data => {
+      if (data.count !== undefined) {
+        observeAndAnimate('community', data.count + 500, '+');
+      }
+    })
+    .catch(err => console.error('Error fetching user count:', err));
+
+  // Animate static statistics
+  observeAndAnimate('waste-count', 780, ' kg+');
+  observeAndAnimate('awareness-count', 50000, '+');
   
   // Mobile nav toggle
   const navToggle = document.getElementById("nav-toggle");
@@ -346,3 +404,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+
+
