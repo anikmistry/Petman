@@ -60,10 +60,10 @@
             </div>
         </div>
     </header>
-    <section class="bg-green-100 h-full max-w-full relative">
+    <section class="bg-green-100 h-full w-full relative">
         <div class="max-w-7xl mx-auto">
             <!-- Mobile Dashboard Toggle -->
-            <div class="md:hidden p-4 bg-white shadow-sm flex items-center justify-between">
+            <div class="md:hidden p-4 bg-white shadow-sm flex items-center justify-between sticky top-0 z-50">
                 <h2 class="text-xl font-bold text-green-600">Dashboard</h2>
                 <button id="dashboard-menu-toggle" class="p-2 rounded hover:bg-gray-100">
                     <i class="ri-menu-line text-2xl text-green-600"></i>
@@ -76,7 +76,7 @@
 
                 <!-- Sidebar -->
                 <div id="menudiv"
-                    class="w-64 min-h-screen bg-green-600 text-white p-4 fixed top-0 left-0 z-40 transform -translate-x-full md:translate-x-0 transition-transform duration-300 flex flex-col h-full">
+                    class="w-64 bg-green-600 text-white p-4 fixed md:sticky top-0 left-0 z-40 h-screen transform -translate-x-full md:translate-x-0 transition-transform duration-300 flex flex-col shrink-0">
                     <div class="flex justify-between items-center mb-6 md:block">
                         <h2 class="text-xl font-bold">Menu</h2>
                         <button id="close-sidebar" class="md:hidden text-white hover:text-gray-200">
@@ -105,7 +105,7 @@
                 </div>
 
                 <!-- Content Area -->
-                <div id="contentdiv" class="flex-1 p-6 bg-white w-full md:ml-64 min-h-screen">
+                <div id="contentdiv" class="flex-1 p-6 bg-white w-full min-h-screen">
                     <!-- Content will be loaded here -->
                 </div>
             </div>
@@ -271,6 +271,9 @@
             };
 
             pickups.forEach(pickup => {
+                // Only consider completed pickups for stats
+                if (pickup.status !== 'completed') return;
+
                 const date = new Date(pickup.createdAt);
                 const wasteTypes = Array.isArray(pickup.wasteType) ? pickup.wasteType : [pickup.wasteType];
                 const quantity = pickup.quantity;
@@ -297,7 +300,95 @@
             return { thisMonth, thisYear, total };
         }
 
-        function loadPickup() {
+        async function loadPickup() {
+            contentDiv.innerHTML = '<div class="flex justify-center items-center h-64"><div class="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div></div>';
+
+            try {
+                const res = await fetch('http://localhost:5000/api/pickups', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (res.ok) {
+                    const pickups = await res.json();
+                    const pendingPickup = pickups.find(p => p.status === 'pending');
+
+                    if (pendingPickup) {
+                        renderInvoice(pendingPickup);
+                    } else {
+                        renderPickupForm();
+                    }
+                } else {
+                    contentDiv.innerHTML = '<p class="text-red-500 text-center">Failed to load pickup status.</p>';
+                }
+            } catch (err) {
+                console.error(err);
+                contentDiv.innerHTML = '<p class="text-red-500 text-center">Error loading pickup section.</p>';
+            }
+        }
+
+        function renderInvoice(pickup) {
+            const date = new Date(pickup.scheduledFor).toLocaleString();
+            const wasteTypes = Array.isArray(pickup.wasteType) ? pickup.wasteType.join(', ') : pickup.wasteType;
+
+            contentDiv.innerHTML = `
+                <div class="flex justify-center">
+                    <div class="w-full max-w-2xl bg-white rounded-3xl shadow-xl p-8 my-10 border border-yellow-200 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">
+                            Pending
+                        </div>
+                        <h1 class="text-3xl font-extrabold text-gray-800 mb-6 flex items-center gap-3">
+                            <i class="ri-file-list-3-fill text-yellow-500"></i> Pickup Invoice
+                        </h1>
+                        
+                        <div class="space-y-6">
+                            <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                                <p class="text-sm text-gray-500 mb-1">Pickup ID</p>
+                                <p class="font-mono text-gray-800 font-bold">#${pickup._id.slice(-6).toUpperCase()}</p>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <p class="text-sm text-gray-500 mb-1">Scheduled Time</p>
+                                    <p class="text-lg font-semibold text-green-700 flex items-center gap-2">
+                                        <i class="ri-time-line"></i> ${date}
+                                    </p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500 mb-1">Estimated Quantity</p>
+                                    <p class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                                        <i class="ri-scale-3-line"></i> ${pickup.quantity} kg
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <p class="text-sm text-gray-500 mb-1">Waste Types</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    ${(Array.isArray(pickup.wasteType) ? pickup.wasteType : [pickup.wasteType]).map(type =>
+                `<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium capitalize border border-green-200">${type}</span>`
+            ).join('')}
+                                </div>
+                            </div>
+
+                            ${pickup.details ? `
+                            <div>
+                                <p class="text-sm text-gray-500 mb-1">Additional Details</p>
+                                <p class="text-gray-700 bg-gray-50 p-3 rounded-lg border border-gray-100 italic">"${pickup.details}"</p>
+                            </div>
+                            ` : ''}
+
+                            <div class="pt-6 border-t border-gray-100 text-center">
+                                <p class="text-sm text-gray-500">
+                                    Our team will contact you shortly to confirm the pickup.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderPickupForm() {
             contentDiv.innerHTML = `
     <div class="flex justify-center">
         <div class="w-full max-w-2xl bg-white rounded-3xl shadow-xl p-8 my-10">
@@ -310,23 +401,23 @@
                 <h2 class="text-lg font-bold mb-2 text-green-600 flex items-center gap-2"><i class="ri-checkbox-multiple-fill"></i> Waste Types</h2>
                 <div class="grid grid-cols-2 gap-4">
                     <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 bg-gray-50 hover:bg-green-50 cursor-pointer transition">
-                        <input type="checkbox" name="wasteType" value="plastic bottles" class="accent-green-600 w-5 h-5">
-                        <span class="flex flex-col"><span class="font-semibold">Plastic Bottles</span><span class="text-xs text-gray-400">15TK/kg</span></span>
+                        <input type="checkbox" name="wasteType" value="plastic" class="accent-green-600 w-5 h-5">
+                        <span class="flex flex-col"><span class="font-semibold">Plastic</span><span class="text-xs text-gray-400">15TK/kg</span></span>
                     </label>
                     <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 bg-gray-50 hover:bg-green-50 cursor-pointer transition">
-                        <input type="checkbox" name="wasteType" value="paper products" class="accent-green-600 w-5 h-5">
-                        <span class="flex flex-col"><span class="font-semibold">Paper Products</span><span class="text-xs text-gray-400">10TK/kg</span></span>
+                        <input type="checkbox" name="wasteType" value="paper" class="accent-green-600 w-5 h-5">
+                        <span class="flex flex-col"><span class="font-semibold">Paper</span><span class="text-xs text-gray-400">10TK/kg</span></span>
                     </label>
                     <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 bg-gray-50 hover:bg-green-50 cursor-pointer transition">
                         <input type="checkbox" name="wasteType" value="electronics" class="accent-green-600 w-5 h-5">
                         <span class="flex flex-col"><span class="font-semibold">Electronics</span><span class="text-xs text-gray-400">50TK/kg</span></span>
                     </label>
                     <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 bg-gray-50 hover:bg-green-50 cursor-pointer transition">
-                        <input type="checkbox" name="wasteType" value="used clothes" class="accent-green-600 w-5 h-5">
+                        <input type="checkbox" name="wasteType" value="used_clothing" class="accent-green-600 w-5 h-5">
                         <span class="flex flex-col"><span class="font-semibold">Used Clothes</span><span class="text-xs text-gray-400">20TK/kg</span></span>
                     </label>
                     <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 bg-gray-50 hover:bg-green-50 cursor-pointer transition">
-                        <input type="checkbox" name="wasteType" value="metal items" class="accent-green-600 w-5 h-5">
+                        <input type="checkbox" name="wasteType" value="metal" class="accent-green-600 w-5 h-5">
                         <span class="flex flex-col"><span class="font-semibold">Metal Items</span><span class="text-xs text-gray-400">25TK/kg</span></span>
                     </label>
                     <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 bg-gray-50 hover:bg-green-50 cursor-pointer transition">
@@ -428,7 +519,7 @@
 
                     if (res.ok) {
                         alert('Pickup scheduled successfully!');
-                        loadDashboard(); // Reload dashboard
+                        loadDashboard(); // Reload dashboard (or reuse loadPickup, which now checks status)
                     } else {
                         const error = await res.json();
                         alert('Failed to schedule pickup: ' + (error.message || 'Unknown error'));
