@@ -1,13 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PETman - Admin</title>
+    <meta name="description" content="PETman Admin Dashboard" />
+    <link rel="icon" type="image/png" href="../../src/assets/petmanlogo.png" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
-<body>
-    <h1>Admin Dashboard</h1>
-    <button id="logout-btn">Logout</button>
+
+<body class="bg-green-100">
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <a href="../../index.html" class="flex items-center gap-3">
+                    <img src="../../src/assets/petmanlogo.png" alt="PETman Logo" class="w-10 h-10" />
+                    <span class="text-2xl font-bold text-green-600">PETman <span
+                            class="text-gray-600 text-sm">Admin</span></span>
+                </a>
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="../../index.html" class="text-gray-700 hover:text-green-600 transition font-bold">Home</a>
+                    <!-- <a href="#" class="ml-4 bg-gradient-green text-white px-6 py-2 rounded-lg hover:shadow-lg transition">Get Started</a> -->
+                </nav>
+                <button id="nav-toggle" class="md:hidden p-2 rounded-lg border border-gray-300">
+                    <svg id="nav-open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <svg id="nav-close" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden border-t bg-gray-50">
+            <div class="px-4 py-4 flex flex-col gap-3">
+                <a href="../../index.html" class="text-gray-700 py-2 font-bold">Home</a>
+            </div>
+        </div>
+    </header>
+    <section class="bg-green-100  h-full w-full relative">
+        <div class="max-w-7xl mx-auto">
+            <!-- Mobile Dashboard Toggle -->
+            <div class="md:hidden p-4 bg-white shadow-sm flex items-center justify-between sticky top-0 z-50">
+                <h2 class="text-xl font-bold text-green-600">Admin Dashboard</h2>
+                <button id="dashboard-menu-toggle" class="p-2 rounded hover:bg-gray-100">
+                    <i class="ri-menu-line text-2xl text-green-600"></i>
+                </button>
+            </div>
+
+            <div id="maindiv" class="flex min-h-screen relative">
+                <!-- Sidebar Overlay -->
+                <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden md:hidden"></div>
+
+                <!-- Sidebar -->
+                <div id="menudiv"
+                    class="w-64 bg-green-900 text-white p-4 fixed top-[4.5rem] h-[calc(100vh-4.5rem)] z-[60] md:sticky md:top-20 md:h-[calc(100vh-5rem)] md:z-40 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300 flex flex-col shrink-0 lg:sticky">
+                    <div class="flex justify-between items-center mb-6 md:block">
+                        <h2 class="text-xl font-bold">Menu</h2>
+                        <button id="close-sidebar" class="md:hidden text-white hover:text-gray-200">
+                            <i class="ri-close-line text-2xl"></i>
+                        </button>
+                    </div>
+                    <ul class="space-y-4">
+                        <li><button id="menu-dashboard"
+                                class="w-full text-left py-2 px-4 rounded hover:bg-green-700 transition">Dashboard</button>
+                        </li>
+                        <li><button id="menu-requests"
+                                class="w-full text-left py-2 px-4 rounded hover:bg-green-700 transition">Pickup
+                                Requests</button>
+                        </li>
+                        <li><button id="menu-logout"
+                                class="w-full text-left py-2 px-4 rounded hover:bg-green-700 transition bg-red-600 hover:bg-red-700">Logout</button>
+                        </li>
+                        <li class="mt-auto pt-4 border-t border-green-700 md:hidden">
+                            <a href="../../index.html"
+                                class="block w-full text-left py-2 px-4 rounded hover:bg-green-800 transition">Back to
+                                Home</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Content Area -->
+                <div id="contentdiv" class="flex-1 p-6 bg-white w-full min-h-screen">
+                    <!-- Content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Quantity Modal -->
+    <div id="quantity-modal"
+        class="fixed inset-0 bg-black bg-opacity-50 z-[100] hidden flex items-center justify-center p-4">
+        <div
+            class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-300">
+            <div class="p-6 border-b bg-green-50 flex items-center justify-between">
+                <h3 class="text-xl font-bold text-green-800">Complete Pickup</h3>
+                <button onclick="closeQuantityModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="ri-close-line text-2xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <p class="text-gray-600 mb-6 font-medium">Please enter the collected quantity for each waste type (in
+                    kg):</p>
+                <form id="quantity-form" class="space-y-4">
+                    <div id="quantity-inputs-container" class="space-y-4 max-h-[40vh] overflow-y-auto px-1">
+                        <!-- Dynamic inputs will be inserted here -->
+                    </div>
+                    <div class="pt-6 flex gap-4">
+                        <button type="button" onclick="closeQuantityModal()"
+                            class="flex-1 px-4 py-3 rounded-xl border border-gray-200 text-gray-700 font-bold hover:bg-gray-50 transition">
+                            Cancel
+                        </button>
+                        <button type="submit"
+                            class="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-xl font-bold shadow-lg shadow-green-200 transition">
+                            Confirm Completion
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script src="adminDashboard.js"></script>
 </body>
+
 </html>

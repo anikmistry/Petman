@@ -60,7 +60,7 @@
             </div>
         </div>
     </header>
-    <section class="bg-green-100 h-full w-full relative">
+    <section class="bg-green-100  h-full w-full relative">
         <div class="max-w-7xl mx-auto">
             <!-- Mobile Dashboard Toggle -->
             <div class="md:hidden p-4 bg-white shadow-sm flex items-center justify-between sticky top-0 z-50">
@@ -76,9 +76,9 @@
 
                 <!-- Sidebar -->
                 <div id="menudiv"
-                    class="w-64 bg-green-600 text-white p-4 fixed md:sticky top-0 left-0 z-40 h-screen transform -translate-x-full md:translate-x-0 transition-transform duration-300 flex flex-col shrink-0">
+                    class="w-64 bg-green-600 text-white p-4 fixed top-[4.5rem] h-[calc(100vh-4.5rem)] z-[60] md:sticky md:top-20 md:h-[calc(100vh-5rem)] md:z-40 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300 flex flex-col shrink-0 lg:sticky">
                     <div class="flex justify-between items-center mb-6 md:block">
-                        <h2 class="text-xl font-bold">Menu</h2>
+                        <h2 class="text-xl font-bold"></h2>
                         <button id="close-sidebar" class="md:hidden text-white hover:text-gray-200">
                             <i class="ri-close-line text-2xl"></i>
                         </button>
@@ -142,6 +142,28 @@
         }
         if (sidebarOverlay) {
             sidebarOverlay.addEventListener('click', () => toggleSidebar(false));
+        }
+
+        // Header Mobile Menu functionalities
+        const navToggle = document.getElementById('nav-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navOpenIcon = document.getElementById('nav-open');
+        const navCloseIcon = document.getElementById('nav-close');
+        const dashboardLink = document.getElementById('dashboard-link');
+        const dashboardLinkMobile = document.getElementById('dashboard-link-mobile');
+
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                navOpenIcon.classList.toggle('hidden');
+                navCloseIcon.classList.toggle('hidden');
+            });
+        }
+
+        // Show dashboard links if logged in
+        if (token) {
+            if (dashboardLink) dashboardLink.classList.remove('hidden');
+            if (dashboardLinkMobile) dashboardLinkMobile.classList.remove('hidden');
         }
 
         if (!token) {
@@ -275,26 +297,64 @@
                 if (pickup.status !== 'completed') return;
 
                 const date = new Date(pickup.createdAt);
-                const wasteTypes = Array.isArray(pickup.wasteType) ? pickup.wasteType : [pickup.wasteType];
-                const quantity = pickup.quantity;
-                const price = prices[wasteTypes[0].toLowerCase()] || 15; // Use first type for price
-                const earned = quantity * price;
 
-                wasteTypes.forEach(type => {
-                    const category = type.toLowerCase().replace(/\s+/g, '');
-                    if (total.hasOwnProperty(category)) {
-                        total[category] += quantity;
-                        total.earned += earned;
-                        if (date.getFullYear() === now.getFullYear()) {
-                            thisYear[category] += quantity;
-                            thisYear.earned += earned;
-                            if (date.getMonth() === now.getMonth()) {
-                                thisMonth[category] += quantity;
-                                thisMonth.earned += earned;
+                // Use wasteQuantities breakdown if available, otherwise fallback to old behavior
+                if (pickup.wasteQuantities && Object.keys(pickup.wasteQuantities).length > 0) {
+                    Object.entries(pickup.wasteQuantities).forEach(([type, qty]) => {
+                        let category = type.toLowerCase();
+                        if (category === 'plastic') category = 'plasticBottles';
+                        else if (category === 'paper') category = 'paperProducts';
+                        else if (category === 'electronics') category = 'electronics';
+                        else if (category === 'used_clothing' || category === 'used_clothes') category = 'usedClothes';
+                        else if (category === 'metal') category = 'metalItems';
+                        else if (category === 'cardboard') category = 'cardboard';
+
+                        const price = prices[type.toLowerCase().replace('_', ' ')] || 15;
+                        const earned = qty * price;
+
+                        if (total.hasOwnProperty(category)) {
+                            total[category] += qty;
+                            total.earned += earned;
+                            if (date.getFullYear() === now.getFullYear()) {
+                                thisYear[category] += qty;
+                                thisYear.earned += earned;
+                                if (date.getMonth() === now.getMonth()) {
+                                    thisMonth[category] += qty;
+                                    thisMonth.earned += earned;
+                                }
                             }
                         }
-                    }
-                });
+                    });
+                } else {
+                    // Fallback for older pickups without breakdown
+                    const wasteTypes = Array.isArray(pickup.wasteType) ? pickup.wasteType : [pickup.wasteType];
+                    const quantity = pickup.quantity;
+                    const price = prices[wasteTypes[0].toLowerCase().replace('_', ' ')] || 15;
+                    const earned = quantity * price;
+
+                    wasteTypes.forEach(type => {
+                        let category = type.toLowerCase();
+                        if (category === 'plastic') category = 'plasticBottles';
+                        else if (category === 'paper') category = 'paperProducts';
+                        else if (category === 'electronics') category = 'electronics';
+                        else if (category === 'used_clothing' || category === 'used_clothes') category = 'usedClothes';
+                        else if (category === 'metal') category = 'metalItems';
+                        else if (category === 'cardboard') category = 'cardboard';
+
+                        if (total.hasOwnProperty(category)) {
+                            total[category] += quantity;
+                            total.earned += earned;
+                            if (date.getFullYear() === now.getFullYear()) {
+                                thisYear[category] += quantity;
+                                thisYear.earned += earned;
+                                if (date.getMonth() === now.getMonth()) {
+                                    thisMonth[category] += quantity;
+                                    thisMonth.earned += earned;
+                                }
+                            }
+                        }
+                    });
+                }
             });
 
             return { thisMonth, thisYear, total };

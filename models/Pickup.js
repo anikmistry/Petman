@@ -10,6 +10,7 @@ const PickupSchema = new mongoose.Schema({
   details: { type: String },
   scheduledFor: { type: Date, default: Date.now, required: true },
   status: { type: String, enum: ['pending','scheduled','completed','cancelled'], default: 'pending' },
+  wasteQuantities: { type: Map, of: Number, default: {} },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Pickup', PickupSchema);
