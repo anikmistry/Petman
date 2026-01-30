@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PETman - Our Services</title>
+    <meta name="description"
+        content="Transform waste management with PETman. Fast, reliable, and eco-friendly waste collection and recycling services for homes and businesses." />
+    <link rel="icon" type="image/png" href="../../src/assets/petmanlogo.png" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../src/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body class="antialiased text-gray-800 bg-gray-50">
+    <!-- Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <a href="../../index.html" class="flex items-center gap-3">
+                    <img src="../../src/assets/petmanlogo.png" alt="PETman Logo" class="w-10 h-10" />
+                    <span class="text-2xl font-bold text-green-600">PETman</span>
+                </a>
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="../../index.html" class="text-gray-700 hover:text-green-600 transition font-bold">Home</a>
+                    <a href="#" class="text-green-600 transition font-extrabold border-b-2 border-green-600">Our
+                        Service</a>
+
+                    <a id="dashboard-link" href="../../dashboard.html"
+                        class="text-gray-700 hover:text-green-600 transition font-bold hidden">Dashboard</a>
+                </nav>
+                <button id="nav-toggle" class="md:hidden p-2 rounded-lg border border-gray-300">
+                    <svg id="nav-open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <svg id="nav-close" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden border-t bg-gray-50">
+            <div class="px-4 py-4 flex flex-col gap-3">
+                <a href="../../index.html" class="text-gray-700 py-2 font-bold">Home</a>
+                <a href="#" class="text-green-600 py-2 font-extrabold">Our Service</a>
+
+                <a id="dashboard-link-mobile" href="../../dashboard.html"
+                    class="text-gray-700 py-2 font-bold hidden">Dashboard</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="py-20 gradient-green text-center text-white">
+            <div class="max-w-4xl mx-auto px-4">
+                <h1 class="text-5xl font-extrabold mb-6">Our Services</h1>
+                <p class="text-xl opacity-90 leading-relaxed">
+                    PETman’s Zero Waste Events help you reduce or completely eliminate waste at every stage of your
+                    event while making the best use of resources.
+                </p>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <section class="py-20 bg-white">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- General Intro -->
+                <div class="mb-20 text-center">
+                    <div class="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-6">
+                        <i class="ri-recycle-fill text-4xl text-green-600"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Zero Waste Events</h2>
+                    <p class="text-lg text-gray-600 leading-relaxed mb-8">
+                        By focusing on waste reduction, reuse, recovery, recycling, and composting, we make sure your
+                        event leaves no trace behind. From planning and suggesting sustainable alternatives to on-site
+                        waste management and post-event disposal, we provide a full, end-to-end solution for zero-waste
+                        events.
+                    </p>
+                    <div class="bg-green-50 p-6 rounded-2xl border-2 border-green-100 italic text-green-800">
+                        "After the event, we share a clear waste report, showing exactly what was generated, managed,
+                        and recycled helping your organization run events smoothly, efficiently, and responsibly."
+                    </div>
+                </div>
+
+                <!-- Event Types Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Corporate -->
+                    <div
+                        class="p-8 rounded-3xl border-2 border-gray-100 hover:border-green-200 hover:shadow-xl transition transition-all duration-300">
+                        <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="ri-building-line text-3xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Zero Waste Corporate Events</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Professional zero-waste solutions for conferences, seminars, Convictions and office events
+                            ensure responsible waste management without disrupting your operations.
+                        </p>
+                    </div>
+
+                    <!-- Wedding -->
+                    <div
+                        class="p-8 rounded-3xl border-2 border-gray-100 hover:border-green-200 hover:shadow-xl transition transition-all duration-300">
+                        <div class="w-14 h-14 bg-pink-100 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="ri-hearts-line text-3xl text-pink-600"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Zero Waste Wedding Events</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Make your special day truly memorable with eco-friendly waste management. We handle all
+                            event waste responsibly so your celebration leaves only beautiful memories, not landfill
+                            waste.
+                        </p>
+                    </div>
+
+                    <!-- Sports -->
+                    <div
+                        class="p-8 rounded-3xl border-2 border-gray-100 hover:border-green-200 hover:shadow-xl transition transition-all duration-300">
+                        <div class="w-14 h-14 bg-orange-100 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="ri-trophy-line text-3xl text-orange-600"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Zero Waste Sports Events</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            From Marathon to large sporting events, PETman ensures clean venues, efficient waste
+                            collection, and responsible recycling throughout the event.
+                        </p>
+                    </div>
+
+                    <!-- Concert -->
+                    <div
+                        class="p-8 rounded-3xl border-2 border-gray-100 hover:border-green-200 hover:shadow-xl transition transition-all duration-300">
+                        <div class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="ri-music-2-line text-3xl text-purple-600"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Zero Waste Concert & Music Events</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Manage high-volume waste at concerts and music festivals with ease. Our trained teams ensure
+                            safe collection, proper recycling, and a cleaner, greener event experience.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Logo Showcase -->
+        <section class="py-20 bg-gradient-to-r from-green-50 via-blue-50 to-green-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">Supported By</h2>
+                    <p class="text-gray-600 text-lg">These amazing organisations are helping us grow and empower more
+                        learners every day</p>
+                </div>
+
+                <!-- Slider Container -->
+                <div class="relative overflow-hidden bg-white rounded-2xl shadow-xl p-8">
+                    <!-- Slider Wrapper -->
+                    <div class="slider-wrapper overflow-hidden">
+                        <div class="slider-track flex animate-scroll gap-12 items-center justify-center">
+                            <!-- Logo 1 -->
+                            <div class="slider-item min-w-max flex-shrink-0">
+                                <img src="../../src/assets/logo showcase/acceleratebd_logo-removebg-preview.png"
+                                    alt="Accelerate BD"
+                                    class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
+                            </div>
+                            <!-- Logo 2 -->
+                            <div class="slider-item min-w-max flex-shrink-0">
+                                <img src="../../src/assets/logo showcase/iDE_Global_Solutions.webp"
+                                    alt="iDE Global Solutions"
+                                    class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
+                            </div>
+                            <!-- Logo 3 -->
+                            <div class="slider-item min-w-max flex-shrink-0">
+                                <img src="../../src/assets/logo showcase/LCP-Logo-Website-12.png" alt="LCP"
+                                    class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
+                            </div>
+                            <!-- Logo 4 -->
+                            <div class="slider-item min-w-max flex-shrink-0">
+                                <img src="../../src/assets/logo showcase/simcubator_logo-1.png" alt="Simcubator"
+                                    class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
+                            </div>
+                            <!-- Logo 5 -->
+                            <div class="slider-item min-w-max flex-shrink-0">
+                                <img src="../../src/assets/logo showcase/download.png" alt="Partner Logo"
+                                    class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
+                            </div>
+                            <!-- Logo 6 -->
+                            <div class="slider-item min-w-max flex-shrink-0">
+                                <img src="../../src/assets/logo showcase/images.png" alt="Partner Logo"
+                                    class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
+                            </div>
+                            <!-- Logo 8 -->
+                            <div class="slider-item min-w-max flex-shrink-0">
+                                <img src="../../src/assets/logo showcase/WhatsApp Image 2026-01-25 at 1.27.26 AM.jpeg"
+                                    alt="Partner Logo"
+                                    class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300 rounded-lg">
+                            </div>
+                            <!-- Logo 9 -->
+                            <div class="slider-item min-w-max flex-shrink-0">
+                                <img src="../../src/assets/logo showcase/WhatsApp Image 2026-01-25 at 1.32.03 AM.jpeg"
+                                    alt="Partner Logo"
+                                    class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300 rounded-lg">
+                            </div>
+
+                            <!-- Duplicate for seamless loop -->
+                            <div class="slider-item min-w-max flex-shrink-0">
+                                <img src="../../src/assets/logo showcase/acceleratebd_logo-removebg-preview.png"
+                                    alt="Accelerate BD"
+                                    class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
+                            </div>
+                            <div class="slider-item min-w-max flex-shrink-0">
+                                <img src="../../src/assets/logo showcase/iDE_Global_Solutions.webp"
+                                    alt="iDE Global Solutions"
+                                    class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
+                            </div>
+                            <div class="slider-item min-w-max flex-shrink-0">
+                                <img src="../../src/assets/logo showcase/LCP-Logo-Website-12.png" alt="LCP"
+                                    class="h-20 w-auto object-contain hover:scale-110 transition-transform duration-300">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gradient Overlays -->
+                    <div
+                        class="absolute top-0 left-0 w-20 h-full bg-gradient-to-r from-white via-transparent to-transparent pointer-events-none">
+                    </div>
+                    <div
+                        class="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-white via-transparent to-transparent pointer-events-none">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-gray-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                    <div>
+                        <a href="../../index.html" class="flex items-center gap-3 mb-4">
+                            <img src="../../src/assets/petmanlogo.png" alt="PETman Logo" class="w-10 h-10" />
+                            <span class="text-xl font-bold text-white">PETman</span>
+                        </a>
+                        <p class="text-sm">Smart, sustainable waste management.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold mb-4">Links</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="../../index.html" class="hover:text-green-400">Home</a></li>
+                            <li><a href="../../index.html#services" class="hover:text-green-400">Services</a></li>
+                            <li><a href="../../index.html#pricing" class="hover:text-green-400">Pricing</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold mb-4">Support</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="#" class="hover:text-green-400">Help</a></li>
+                            <li><a href="#" class="hover:text-green-400">Privacy</a></li>
+                            <li><a href="#" class="hover:text-green-400">Terms</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold mb-4">Newsletter</h4>
+                        <form class="flex" onsubmit="event.preventDefault()">
+                            <input type="email" placeholder="Email"
+                                class="flex-1 px-3 py-2 rounded-l text-gray-900 text-sm focus:outline-none" />
+                            <button class="bg-green-600 px-3 py-2 rounded-r"><i class="fas fa-arrow-right"></i></button>
+                        </form>
+                    </div>
+                </div>
+                <div class="border-t border-gray-700 pt-8 text-center text-sm">
+                    <p>© <span>2026</span> PETman. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // Use token from index.html if available (sessionStorage)
+        const token = sessionStorage.getItem('authToken');
+        const dashboardLink = document.getElementById('dashboard-link');
+        const dashboardLinkMobile = document.getElementById('dashboard-link-mobile');
+
+        if (token) {
+            if (dashboardLink) dashboardLink.classList.remove('hidden');
+            if (dashboardLinkMobile) dashboardLinkMobile.classList.remove('hidden');
+        }
+
+        // Nav toggle logic
+        const navToggle = document.getElementById('nav-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navOpenIcon = document.getElementById('nav-open');
+        const navCloseIcon = document.getElementById('nav-close');
+
+        navToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            navOpenIcon.classList.toggle('hidden');
+            navCloseIcon.classList.toggle('hidden');
+        });
+    </script>
+</body>
+
+</html>
